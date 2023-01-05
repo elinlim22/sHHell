@@ -6,7 +6,7 @@
 #    By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 14:01:08 by hyeslim           #+#    #+#              #
-#    Updated: 2022/12/04 17:02:25 by hyeslim          ###   ########.fr        #
+#    Updated: 2023/01/05 15:32:21 by hyeslim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS = ft_atoi.c \
 		ft_strtrim.c \
 		ft_substr.c \
 		ft_tolower.c \
+		ft_wrap_malloc.c \
 		ft_toupper.c
 BSRCS =  ft_lstnew.c \
 		ft_lstadd_front.c \

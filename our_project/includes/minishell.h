@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/04 23:28:57 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/05 17:05:07 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,94 @@
 
 enum e_pars
 {
-	STR, SPCE, SINQ, DOUQ, DOLR, \
-	PIPE, \
-	RIGT, DRGT, LEFT, DLFT
+	STR,
+	SPCE,
+	SINQ,
+	DOUQ,
+	DOLR,
+	PIPE,
+	RIGT,
+	DRGT,
+	LEFT,
+	DLFT
 };
 
-typedef struct	s_shell
+typedef struct s_token
 {
 	char			*str;
 	int				type;
-	struct s_shell	*next;
-}				t_shell;
-// signal handling
+	struct s_token	*next;
+}				t_tok;
+
+typedef struct s_redirection
+{
+	char					*str;
+	int						type;
+	struct s_redirection	*next;
+}				t_red;
+
+typedef struct s_command
+{
+	t_tok				*cmd;
+	t_red				*red;
+	struct s_command	*next;
+}				t_cmd;
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+	struct s_env	*prev;
+}				t_env;
+
+void	init_env(t_env *env, char *envp[]);
 
 #endif
-
-
+// signal handling
 
 /*
+----------------------------------
+예시 : cat < txt < txt < txt < txt2 | grep a >out > out > out2
+
+txt		: hello my name is txt
+txt2	: hello my name is txt2
+
+ls
+out out2 txt txt2
+
+cat
+out		: 아무것도 없음
+out2	: hello my name is txt2
+
+<	:	파이프 사이를 한 묶음 으로 보고 그 묶음에 < 여러개가 있으면 가장 마지막 file만
+		STDIN으로 사용
+>	:	일단 모든 file을 open 하고 가장 마지막의 file을 STDOUT으로 사용
+
+|	*token node*
+|	cmd : cat -> NULL
+|	type: STR -> NULL
+|
+|	red : txt -> txt -> txt -> txt2 -> NULL
+|	type: LEFT-> LEFT-> LEFT-> LEFT -> NULL
+|
+|	*token node next*
+|	cmd : grep -> a -> NULL
+|	type: STR  -> STR-> NULL
+|
+|	red : out -> out -> out2
+|	type: RIGT-> RIGT-> RIGT -> NULL
+|
+----------------------------------
+----------------------------------
 예시 : cat as0df |grep "as"
 
 cat as0df : STR
 | : PIPE
 grep "as" : STR
+----------------------------------
 
+----------------------------------
 예시 : < infile cat|grep "as" > outfile
 < : LEFT
 infile cat: STR
@@ -57,6 +121,7 @@ infile cat: STR
 grep "as" : STR
 > : RIGT
 outfile
+----------------------------------
 
 
 char *str 에 넣을것 : split을 할때 공백 기준으로 하되, |, <, >가 나오면 그냥 무조건 스플릿?
@@ -71,40 +136,5 @@ char *str 에 넣을것 : split을 할때 공백 기준으로 하되, |, <, >가
 cat as0df |grep "as" >
 cat -e file | echo ji << outfile | cat | cat | cat | cat | cat |grep "as"
 < infile ls -al | grep "as" > outfile
-
-cat
-as0df
-|
-grep
-"as"
-
-노드1
-str : cat
-type : 0(STR)
-next : 노드2
-
-노드2
-str : as0df
-type : 0(STR)
-next : 노드3
-
-....
-
-
-그다음에
-노드를 읽으면서 | < >가 아니면 합쳐 2차원배열로
-
-(구조체가 다른)노드1
-str : {cat; as0df}
-next
-
-노드2
-str : |
-next
-
-노드3
-str : {grep; "as"}
-next
-
 
 */

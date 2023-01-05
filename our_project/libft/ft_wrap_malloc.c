@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_wrap_malloc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/04 16:22:21 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/05 17:44:51 by hyeslim          ###   ########.fr       */
+/*   Created: 2023/01/05 15:30:27 by huipark           #+#    #+#             */
+/*   Updated: 2023/01/05 17:44:49 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-// void	setup(void)
-// {
-// 	signal(SIGINT, sigint_handler);
-// 	signal(SIGQUIT, SIG_IGN);
-// }
-
-void	tok_add(t_tok **tok)
+void	*ft_wrap_malloc(size_t s)
 {
-	t_tok	*new;
+	void	*ret;
 
-	new = (t_tok *)malloc(sizeof(t_tok));
-	if (!new)
-		return ;
-	new->str = NULL;
-	new->type = 0;
-	(*tok)->next = new;
-	(*tok) = (*tok)->next;
+	ret = malloc(s);
+	if (ret == NULL)
+		exit (1);
+	return (ret);
 }

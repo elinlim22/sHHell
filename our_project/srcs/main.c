@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/05 14:41:24 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/05 17:34:45 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	prompt()
 	char *str;
 	while (1)
 	{
-		str = readline("\033[0;35mSay please $ \033[0m");
+		str = readline("\033[0;35mminihell $ \033[0m");
 		if (ft_strncmp(str, "exit", 4) == 0)
 		{
 			printf("exit!!\n");
@@ -30,15 +30,12 @@ void	prompt()
 	}
 }
 
-int	main(int argc __attribute__((unused)), char *argv[] __attribute__((unused)))
+int	main(int argc __attribute__((unused)), char *argv[] __attribute__((unused)), char *envp[])
 {
+	t_env	env;
 
+	init_env(&env, envp);
 	prompt();
-	while (*input)
-	{
-		노드->str = single_split(&input);
-
-	}
 }
 
 
