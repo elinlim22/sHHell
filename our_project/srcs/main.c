@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/05 13:05:51 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/05 14:41:24 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	main(int argc __attribute__((unused)), char *argv[] __attribute__((unused)))
 	while (*input)
 	{
 		노드->str = single_split(&input);
-		타입을 어케 넣어야할지 막막
 
 	}
 }
@@ -59,7 +58,7 @@ char *single_split(char **input)
 	space = 0;
 	while (*input[space] == ' ')
 		space++;
-	*input += space + 1
+	*input += space + 1;
 	while (*input[i] && *input != '|' && *input != '<' && *input != '>')      //등등
 		i++;
 	dest = ft_substr(*input, 0, i + 1);
