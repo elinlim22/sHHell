@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iterator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:41:25 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/06 17:52:27 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/06 18:24:49 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	redirection_tok(t_tok *token)
 		if (token->next->type == LEFT || token->next->type == RIGT
 			|| token->next->type == DLFT || token->next->type == DRGT)
 		{
-			if (token->next == NULL)
+			if (token->next->next == NULL)
 				return ;
 			red_node = token->next;
 			file_node = token->next->next;
