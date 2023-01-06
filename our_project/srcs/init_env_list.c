@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:06:25 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/05 17:34:36 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/06 17:52:30 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,13 @@ void	init_env(t_env *env, char *envp[])
 	env->prev = NULL;
 	while (envp[i])
 		newnode(env, envp, i++);
+}
+
+t_cmd	*init_cmd_list(void)
+{
+	t_cmd	*node;
+
+	node = ft_wrap_malloc(sizeof(t_cmd));
+	node->next = NULL;
+	return (node);
 }
