@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/05 17:05:07 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/06 17:52:26 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 enum e_pars
 {
-	STR,
+	STR = 1,
 	SPCE,
 	SINQ,
 	DOUQ,
@@ -59,6 +59,11 @@ typedef struct s_command
 	struct s_command	*next;
 }				t_cmd;
 
+// cmd 1 cat -> null
+// cmd 2 echp -> asdf -> null
+
+// cmd 1 infile -> outfulr -> null
+// cmd 2 null
 typedef struct s_env
 {
 	char			*key;
@@ -68,6 +73,9 @@ typedef struct s_env
 }				t_env;
 
 void	init_env(t_env *env, char *envp[]);
+t_cmd	*init_cmd_list(void);
+t_red	*init_red(t_tok	*token);
+t_tok	*tokenize(char *str);
 
 #endif
 // signal handling
