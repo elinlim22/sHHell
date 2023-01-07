@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_env_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:06:25 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/06 17:52:30 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/07 20:37:41 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*get_env_key(char *line)
+static char	*get_env_key(char *line)
 {
 	char	*dest;
 	int		i;
@@ -32,7 +32,7 @@ char	*get_env_key(char *line)
 	return (dest);
 }
 
-char	*get_env_value(char *line)
+static char	*get_env_value(char *line)
 {
 	char	*dest;
 	int		i;
@@ -46,7 +46,7 @@ char	*get_env_value(char *line)
 	return (dest);
 }
 
-void	newnode(t_env *head, char *envp[], int i)
+static void	newnode(t_env *head, char *envp[], int i)
 {
 	t_env	*newnode;
 
@@ -71,13 +71,4 @@ void	init_env(t_env *env, char *envp[])
 	env->prev = NULL;
 	while (envp[i])
 		newnode(env, envp, i++);
-}
-
-t_cmd	*init_cmd_list(void)
-{
-	t_cmd	*node;
-
-	node = ft_wrap_malloc(sizeof(t_cmd));
-	node->next = NULL;
-	return (node);
 }

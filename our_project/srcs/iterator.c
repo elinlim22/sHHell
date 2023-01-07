@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   iterator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:41:25 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/07 13:24:34 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/07 20:48:39 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	search_red_type(t_tok *token)
+static int	search_red_type(t_tok *token)
 {
 	t_tok	*red_node;
 	t_tok	*file_node;
 
-	if (token->next->type == LEFT || token->next->type == RIGT
-		|| token->next->type == DLFT || token->next->type == DRGT)
+	if (!token->next)
+		return (1);
+	if ((token->next->type == LEFT || token->next->type == RIGT
+			|| token->next->type == DLFT || token->next->type == DRGT))
 	{
 		if (token->next->next == NULL)
 			return (1);
@@ -37,60 +39,67 @@ int	search_red_type(t_tok *token)
 	return (0);
 }
 
-void	redirection_tok(t_tok *token)
-{
-	token = token->next;
-	while (token->next != NULL)
-	{
-		if (search_red_type(token))
-			return ;
-		if (token->next->type != LEFT && token->next->type != RIGT
-			&& token->next->type != DLFT && token->next->type != DRGT)
-			token = token->next;
-	}
-}
-
-static void	newnode(t_red *head, t_tok *token, int type)
+static void	newnode(t_cmd *cmd, t_tok *token, int type)
 {
 	t_red	*newnode;
+	t_red	*temp_head;
 
-	while (head->next != NULL)
-		head = head->next;
+	temp_head = cmd->red;
 	newnode = ft_wrap_malloc(sizeof (t_red));
+	while (cmd->red->next != NULL)
+		cmd->red = cmd->red->next;
 	newnode->str = token->str;
 	newnode->type = type;
 	newnode->next = NULL;
-	head->next = newnode;
+	cmd->red->next = newnode;
+	cmd->red = temp_head;
 }
 
-static void	explore_token(t_red *head, t_tok *token)
+void	redirection_tok(t_cmd *cmd)
 {
-	int	type;
+	t_tok	*temp_head;
 
-	while (token->next != NULL)
+	while (cmd != NULL)
 	{
-		token = token->next;
-		if (token->type == LEFT || token->type == RIGT
-			|| token->type == DRGT || token->type == DLFT)
+		temp_head = cmd->tok;
+		while (cmd->tok != NULL)
 		{
-			type = token->type;
-			if (token->next == NULL)
-				return ;
-			token = token->next;
-			newnode(head, token, type);
+			if (search_red_type(cmd->tok))
+				break ;
+			if (cmd->tok->next->type != LEFT && cmd->tok->next->type != RIGT
+				&& cmd->tok->next->type != DLFT && cmd->tok->next->type != DRGT)
+				cmd->tok = cmd->tok->next;
 		}
+		cmd->tok = temp_head;
+		cmd = cmd->next;
 	}
 }
 
-t_red	*init_red(t_tok	*token)
+void	explore_token(t_cmd *cmd)
 {
-	t_red	*head;
+	int		type;
+	t_tok	*temp_head;
 
-	head = ft_wrap_malloc(sizeof(t_red));
-	head->next = NULL;
-	head->str = NULL;
-	head->type = 0;
-	explore_token(head, token);
-	redirection_tok(token);
-	return (head);
+	type = 0;
+	cmd = cmd->next;
+	while (cmd != NULL)
+	{
+		add_red(cmd);
+		temp_head = cmd->tok;
+		while (cmd->tok != NULL)
+		{
+			if (cmd->tok->type == LEFT || cmd->tok->type == RIGT
+				|| cmd->tok->type == DRGT || cmd->tok->type == DLFT)
+			{
+				type = cmd->tok->type;
+				if (cmd->tok->next == NULL)
+					return ;
+				cmd->tok = cmd->tok->next;
+				newnode(cmd, cmd->tok, type);
+			}
+			cmd->tok = cmd->tok->next;
+		}
+		cmd->tok = temp_head;
+		cmd = cmd->next;
+	}
 }

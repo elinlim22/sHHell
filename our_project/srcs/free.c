@@ -1,44 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/04 20:42:34 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/07 20:48:49 by hyeslim          ###   ########.fr       */
+/*   Created: 2023/01/07 20:39:09 by hyeslim           #+#    #+#             */
+/*   Updated: 2023/01/07 20:39:14 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	count_char(char *str, char q)
+void	free_cmd(t_cmd *cmd)
 {
-	int	i;
-	int	count;
+	t_cmd	*next_cmd;
+	t_tok	*next_tok;
+	t_red	*next_red;
 
-	i = 0;
-	count = 0;
-	while (str[i])
+	while(cmd != NULL)
 	{
-		if (str[i] == q)
-			count++;
+		next_cmd = cmd->next;
+		while (cmd->tok)
+		{
+			next_tok = cmd->tok->next;
+			free(cmd->tok->str);
+			free(cmd->tok);
+			cmd->tok = next_tok;
+		}
+		while (cmd->red)
+		{
+			next_red = cmd->red->next;
+			free(cmd->red->str);
+			free(cmd->red);
+			cmd->red = next_red;
+		}
+		free(cmd);
+		cmd = next_cmd;
 	}
-	return (count);
-}
-
-int	check_arg(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == ';' || (str[i] == '|' && str[i + 1] == '|') \
-		|| str[i] == '\\')
-			return (0);
-		else if (!(count_char(str, '"') % 2) || !(count_char(str, '\'') % 2))
-			return (0);
-	}
-	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/06 17:52:26 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/07 20:46:26 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,11 @@ typedef struct s_redirection
 
 typedef struct s_command
 {
-	t_tok				*cmd;
+	t_tok				*tok;
 	t_red				*red;
 	struct s_command	*next;
 }				t_cmd;
 
-// cmd 1 cat -> null
-// cmd 2 echp -> asdf -> null
-
-// cmd 1 infile -> outfulr -> null
-// cmd 2 null
 typedef struct s_env
 {
 	char			*key;
@@ -72,10 +67,32 @@ typedef struct s_env
 	struct s_env	*prev;
 }				t_env;
 
+// checker.c
+int		check_arg(char *str);
+
+// init.c
+void	add_red(t_cmd *cmd);
+void	init_red(t_cmd	*cmd);
+void	add_tok(t_tok **tok, char *str, int type);
+void	init_tok(t_tok **tok);
+
+// init_env_list.c
 void	init_env(t_env *env, char *envp[]);
-t_cmd	*init_cmd_list(void);
-t_red	*init_red(t_tok	*token);
+
+// iterator.c
+void	explore_token(t_cmd *cmd);
+void	redirection_tok(t_cmd *cmd);
+
+// tokenizer.c
 t_tok	*tokenize(char *str);
+
+// chunk.c
+t_cmd	*chunk(t_tok **tok);
+
+// free.c
+void	free_cmd(t_cmd *cmd);
+
+
 
 #endif
 // signal handling

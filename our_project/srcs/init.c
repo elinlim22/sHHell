@@ -6,27 +6,49 @@
 /*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:22:21 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/05 17:44:51 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/07 20:41:26 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// void	setup(void)
-// {
-// 	signal(SIGINT, sigint_handler);
-// 	signal(SIGQUIT, SIG_IGN);
-// }
+void	add_red(t_cmd *cmd)
+{
+	t_red	*newnode;
 
-void	tok_add(t_tok **tok)
+	if (cmd->red == NULL)
+	{
+		newnode = ft_wrap_malloc(sizeof (t_red));
+		newnode->str = NULL;
+		newnode->type = 0;
+		newnode->next = NULL;
+		cmd->red = newnode;
+	}
+}
+
+void	init_red(t_cmd	*cmd)
+{
+	explore_token(cmd);
+	redirection_tok(cmd);
+}
+
+void	add_tok(t_tok **tok, char *str, int type)
 {
 	t_tok	*new;
 
 	new = (t_tok *)malloc(sizeof(t_tok));
 	if (!new)
 		return ;
-	new->str = NULL;
-	new->type = 0;
+	new->str = str;
+	new->type = type;
+	new->next = NULL;
 	(*tok)->next = new;
 	(*tok) = (*tok)->next;
+}
+
+void	init_tok(t_tok **tok)
+{
+	(*tok)->next = NULL;
+	(*tok)->str = NULL;
+	(*tok)->type = 0;
 }

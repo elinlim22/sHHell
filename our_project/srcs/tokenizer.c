@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:04:03 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/06 16:45:27 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/07 20:41:15 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static int	token_cmd(t_tok **tok, char *str, int type);
-static int	token_red(t_tok **tok, char *str);
-static void	tok_add(t_tok **tok, char *str, int type);
-t_tok		*tokenize(char *str);
-
-/* tokenize */
 
 static int	token_cmd(t_tok **tok, char *str, int type)
 {
@@ -41,7 +34,7 @@ static int	token_cmd(t_tok **tok, char *str, int type)
 			len++;
 		len++;
 	}
-	tok_add(tok, ft_substr(str, 0, len), type);
+	add_tok(tok, ft_substr(str, 0, len), type);
 	return (len);
 }
 
@@ -68,22 +61,8 @@ static int	token_red(t_tok **tok, char *str)
 		else
 			type = RIGT;
 	}
-	tok_add(tok, ft_substr(str, 0, len), type);
+	add_tok(tok, ft_substr(str, 0, len), type);
 	return (len);
-}
-
-static void	tok_add(t_tok **tok, char *str, int type)
-{
-	t_tok	*new;
-
-	new = (t_tok *)malloc(sizeof(t_tok));
-	if (!new)
-		return ;
-	new->str = str;
-	new->type = type;
-	new->next = NULL;
-	(*tok)->next = new;
-	(*tok) = (*tok)->next;
 }
 
 t_tok	*tokenize(char *str)
@@ -92,6 +71,7 @@ t_tok	*tokenize(char *str)
 	t_tok	*curr;
 
 	tok = (t_tok *)malloc(sizeof(t_tok));
+	init_tok(&tok);
 	curr = tok;
 	if (!tok || !str)
 		return (NULL);
@@ -108,7 +88,7 @@ t_tok	*tokenize(char *str)
 		else if (*str == '<' || *str == '>')
 			str += token_red(&curr, str);
 		else if (*str++ == '|')
-			tok_add(&curr, ft_strdup("|"), PIPE);
+			add_tok(&curr, ft_strdup("|"), PIPE);
 	}
 	return (tok);
 }
