@@ -6,50 +6,50 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:41:25 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/06 18:24:49 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/07 13:24:34 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	redirection_tok(t_tok *token)
+int	search_red_type(t_tok *token)
 {
 	t_tok	*red_node;
 	t_tok	*file_node;
 
+	if (token->next->type == LEFT || token->next->type == RIGT
+		|| token->next->type == DLFT || token->next->type == DRGT)
+	{
+		if (token->next->next == NULL)
+			return (1);
+		red_node = token->next;
+		file_node = token->next->next;
+		if (token->next->next->next != NULL)
+			token->next = token->next->next->next;
+		else
+			token->next = NULL;
+		free(red_node->str);
+		free(red_node);
+		free(file_node);
+		if (token->next == NULL)
+			return (1);
+	}
+	return (0);
+}
+
+void	redirection_tok(t_tok *token)
+{
 	token = token->next;
 	while (token->next != NULL)
 	{
-		if (token->next->type == LEFT || token->next->type == RIGT
-			|| token->next->type == DLFT || token->next->type == DRGT)
-		{
-			if (token->next->next == NULL)
-				return ;
-			red_node = token->next;
-			file_node = token->next->next;
-			if (token->next->next->next != NULL)
-				token->next = token->next->next->next;
-			else
-				token->next = NULL;
-			free(red_node->str);
-			free(red_node);
-			free(file_node);
-			if (token->next == NULL)
-				break ;
-		}
+		if (search_red_type(token))
+			return ;
 		if (token->next->type != LEFT && token->next->type != RIGT
 			&& token->next->type != DLFT && token->next->type != DRGT)
 			token = token->next;
 	}
 }
-// asd qwe < fil2
-/*
-// cmd 1 cat -> null
-// cmd 2 echp -> asdf -> null
 
-// cmd 1 infile -> outfulrasd
-// cmd 2 null
-*/
 static void	newnode(t_red *head, t_tok *token, int type)
 {
 	t_red	*newnode;
