@@ -27,7 +27,6 @@ int	main(void)
 {
 	char *str;
 	t_cmd *cmd;
-	int	i = 1;
 
 	while (1)
 	{
@@ -39,6 +38,7 @@ int	main(void)
 		}
 		else
 		{
+			int	i = 1;
 			cmd = ready_to_run(str);
 			// for (t_cmd *curr = cmd->next; curr->next; curr = curr->next)
 			// {
@@ -52,19 +52,20 @@ int	main(void)
 			while (cmd->next)
 			{
 				cmd = cmd->next;
+				printf("-----------------------------------------\n");
 				printf("cmd node%d\n", i++);
 				while (cmd->tok->next)
 				{
 					cmd->tok = cmd->tok->next;
-					printf("[%s : %d] ", cmd->tok->str, cmd->tok->type);
+					printf("TOKEN = [%s : %d] ", cmd->tok->str, cmd->tok->type);
 				}
 				printf("\n");
 				while (cmd->red->next)
 				{
 					cmd->red = cmd->red->next;
-					printf("[%s : %d] ", cmd->red->str, cmd->red->type);
+					printf("RED = [%s : %d] ", cmd->red->str, cmd->red->type);
 				}
-				printf("\n");
+				printf("\n-----------------------------------------\n\n\n");
 			}
 		}
 		add_history(str);
