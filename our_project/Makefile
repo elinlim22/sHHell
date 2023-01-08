@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: huipark <huipark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 17:50:45 by hyeslim           #+#    #+#              #
-#    Updated: 2023/01/07 21:28:51 by hyeslim          ###   ########.fr        #
+#    Updated: 2023/01/08 16:23:18 by huipark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS =	${DIR}main.c \
 		${DIR}init_env_list.c \
 		${DIR}chunk.c \
 		$(DIR)checker.c \
+		$(DIR)exit.c \
 		$(DIR)free.c
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address ##

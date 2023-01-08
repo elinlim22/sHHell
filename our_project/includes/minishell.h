@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/07 20:46:26 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/08 16:09:12 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ void	add_red(t_cmd *cmd);
 void	init_red(t_cmd	*cmd);
 void	add_tok(t_tok **tok, char *str, int type);
 void	init_tok(t_tok **tok);
+
+// exit.c
+int		exit_check(char *str);
 
 // init_env_list.c
 void	init_env(t_env *env, char *envp[]);
