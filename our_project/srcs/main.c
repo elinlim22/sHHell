@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/07 21:16:17 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/08 16:09:39 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,11 @@ int	main(void)
 
 	while (1)
 	{
+		int	i = 1;
 		str = readline("\033[0;35mminihell $> \033[0m");
-		if (ft_strncmp(str, "exit", 4) == 0)
+		if (!exit_check(str))
 		{
-			printf("Dobby is free!!\n");
-			break ;
-		}
-		else
-		{
-			int	i = 1;
 			cmd = ready_to_run(str);
-			// for (t_cmd *curr = cmd->next; curr->next; curr = curr->next)
-			// {
-			// 	for (t_tok *ttt = curr->tok->next; ttt->next; ttt = ttt->next)
-			// 		printf("[%s : %d] ", ttt->str, ttt->type);
-			// 	printf("\n");
-			// 	for (t_red *rrr = curr->red->next; rrr->next; rrr = rrr->next)
-			// 		printf("[%s : %d] ", rrr->str, rrr->type);
-			// 	printf("\n");
-			// }
 			while (cmd->next)
 			{
 				cmd = cmd->next;
@@ -67,9 +53,20 @@ int	main(void)
 				}
 				printf("\n-----------------------------------------\n\n\n");
 			}
+			free_cmd(cmd);
 		}
 		add_history(str);
 		free(str);
-		free_cmd(cmd);
 	}
 }
+
+
+			// for (t_cmd *curr = cmd->next; curr->next; curr = curr->next)
+			// {
+			// 	for (t_tok *ttt = curr->tok->next; ttt->next; ttt = ttt->next)
+			// 		printf("[%s : %d] ", ttt->str, ttt->type);
+			// 	printf("\n");
+			// 	for (t_red *rrr = curr->red->next; rrr->next; rrr = rrr->next)
+			// 		printf("[%s : %d] ", rrr->str, rrr->type);
+			// 	printf("\n");
+			// }
