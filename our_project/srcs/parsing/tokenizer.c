@@ -6,11 +6,11 @@
 /*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:04:03 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/07 20:41:15 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/08 21:57:52 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	token_cmd(t_tok **tok, char *str, int type)
 {

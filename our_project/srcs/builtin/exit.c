@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 16:07:58 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/08 16:24:15 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/08 23:35:49 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	ft_exit(char *msg, int status)
 {
@@ -18,7 +18,7 @@ void	ft_exit(char *msg, int status)
 	exit(status);
 }
 
-static void	exit_argm_check(char *msg, char *argm, int status)
+void	exit_argm_check(char *msg, char *argm, int status)
 {
 	printf("%s%s:  numeric argument required\n", msg, argm);
 	exit(status);
@@ -26,7 +26,7 @@ static void	exit_argm_check(char *msg, char *argm, int status)
 
 static int	exit_final_check(char *num, char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (num[i] == '-' || num[i] == '+')

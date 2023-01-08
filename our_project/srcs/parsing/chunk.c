@@ -6,11 +6,11 @@
 /*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 14:19:26 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/07 20:28:19 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/08 21:58:04 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static void	sep_chunk(t_cmd **cmd, t_tok **tok)
 {

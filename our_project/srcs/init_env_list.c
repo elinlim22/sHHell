@@ -6,7 +6,7 @@
 /*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:06:25 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/07 20:37:41 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/08 22:30:51 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,21 @@ static char	*get_env_value(char *line)
 	return (dest);
 }
 
-static void	newnode(t_env *head, char *envp[], int i)
+static void	newnode(t_env *head, int i)
 {
 	t_env	*newnode;
 
 	newnode = malloc(sizeof(t_env));
 	while (head->next != NULL)
 		head = head->next;
-	newnode->key = get_env_key(envp[i]);
-	newnode->value = get_env_value(envp[i]);
+	newnode->key = get_env_key(environ[i]);
+	newnode->value = get_env_value(environ[i]);
 	newnode->next = NULL;
 	newnode->prev = head;
 	head->next = newnode;
 }
 
-void	init_env(t_env *env, char *envp[])
+void	init_env(t_env *env)
 {
 	int	i;
 
@@ -69,6 +69,6 @@ void	init_env(t_env *env, char *envp[])
 	env->value = NULL;
 	env->next = NULL;
 	env->prev = NULL;
-	while (envp[i])
-		newnode(env, envp, i++);
+	while (environ[i])
+		newnode(env, i++);
 }

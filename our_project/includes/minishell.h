@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/08 16:09:12 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/08 22:50:05 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,10 @@ void	init_tok(t_tok **tok);
 
 // exit.c
 int		exit_check(char *str);
+void	exit_argm_check(char *msg, char *argm, int status);
 
 // init_env_list.c
-void	init_env(t_env *env, char *envp[]);
+void	init_env(t_env *env);
 
 // iterator.c
 void	explore_token(t_cmd *cmd);
@@ -95,8 +96,7 @@ t_cmd	*chunk(t_tok **tok);
 // free.c
 void	free_cmd(t_cmd *cmd);
 
-
-
+extern char	**environ;
 #endif
 // signal handling
 

@@ -6,11 +6,11 @@
 /*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 20:42:34 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/07 20:48:49 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/08 21:57:20 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	count_char(char *str, char q)
 {

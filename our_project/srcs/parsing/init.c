@@ -6,11 +6,11 @@
 /*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:22:21 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/07 20:41:26 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/08 21:57:56 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	add_red(t_cmd *cmd)
 {
