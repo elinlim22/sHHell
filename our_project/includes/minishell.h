@@ -6,7 +6,7 @@
 /*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/08 22:50:05 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/09 15:42:49 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,36 +67,54 @@ typedef struct s_env
 	struct s_env	*prev;
 }				t_env;
 
-// checker.c
-int		check_arg(char *str);
+/* ------------ builtin directory ------------ */
+// cd.c
 
-// init.c
-void	add_red(t_cmd *cmd);
-void	init_red(t_cmd	*cmd);
-void	add_tok(t_tok **tok, char *str, int type);
-void	init_tok(t_tok **tok);
+// echo.c
+void	say_it(t_tok *tok);
+
+// env.c
 
 // exit.c
 int		exit_check(char *str);
 void	exit_argm_check(char *msg, char *argm, int status);
 
-// init_env_list.c
-void	init_env(t_env *env);
+// export.c
 
+// pwd.c
+
+// unset.c
+
+/* ------------ execute directory ------------ */
+
+/* ------------ parsing directory ------------ */
+// checker.c
+int		check_arg(char *str);
+// chunk.c
+t_cmd	*chunk(t_tok **tok);
+// init.c
+void	add_red(t_cmd *cmd);
+void	init_red(t_cmd	*cmd);
+void	add_tok(t_tok **tok, char *str, int type);
+void	init_tok(t_tok **tok);
 // iterator.c
 void	explore_token(t_cmd *cmd);
 void	redirection_tok(t_cmd *cmd);
-
 // tokenizer.c
 t_tok	*tokenize(char *str);
 
-// chunk.c
-t_cmd	*chunk(t_tok **tok);
+/* ------------ signal directory ------------ */
+
+/* ------------ utils directory ------------ */
+
+// init_env_list.c
+void	init_env(t_env *env);
 
 // free.c
 void	free_cmd(t_cmd *cmd);
 
 extern char	**environ;
+
 #endif
 // signal handling
 

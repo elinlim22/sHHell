@@ -6,7 +6,7 @@
 /*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 22:33:16 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/08 23:35:33 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/09 17:38:24 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 static int	all_n(char *str)
 {
+	str++;
 	while (*str)
 	{
 		if (*str != 'n')
 			return (0);
+		str++;
 	}
 	return (1);
 }
@@ -27,20 +29,24 @@ void	say_it(t_tok *tok)
 	t_tok	*curr;
 	int		n_flag;
 
-	curr = tok->next;
+	curr = tok;
 	n_flag = 1;
-	if (ft_strncmp(curr->str, "-n", 2) && all_n(curr->str + 2))
+	// printf("\n\ncurr->str = %s\n\n", curr->str);
+	if (ft_strncmp(curr->str, "-n", 2) && all_n(curr->str))
 	{
 		curr = curr->next;
 		n_flag = 0;
 	}
-	while (curr)
+	while (curr->next)
 	{
 		ft_putstr_fd(curr->str, 2);
 		curr = curr->next;
 	}
-	if (n_flag)
-		ft_putchar_fd('\n', 2);
+	printf("%s", curr->str);
+	// ft_putstr_fd(curr->str, 2);
+	if (!n_flag)
+		printf("\n");
+		// ft_putchar_fd('\n', 2);
 }
 
 static t_cmd	*ready_to_run(char *str)
@@ -63,14 +69,28 @@ int	main(void)
 	init_env(&env);
 	while (1)
 	{
-		// int	i = 1;
+		int	i = 1;
 		str = readline("\033[0;35mminihell $> \033[0m");
 		cmd = ready_to_run(str);
 		while (!exit_check(str) && cmd->next)
 		{
 			cmd = cmd->next;
-			if (ft_strncmp(str, "echo", 4))
-				say_it(cmd->next->tok->next);
+			printf("-----------------------------------------\n");
+			printf("cmd node%d\n", i++);
+			while (cmd->tok->next)
+			{
+				cmd->tok = cmd->tok->next;
+				// if (ft_strncmp(cmd->tok->str, "echo", 4))
+				// 	say_it(cmd->tok);
+				printf("TOKEN = [%s : %d] ", cmd->tok->str, cmd->tok->type);
+			}
+			printf("\n");
+			while (cmd->red->next)
+			{
+				cmd->red = cmd->red->next;
+				printf("RED = [%s : %d] ", cmd->red->str, cmd->red->type);
+			}
+			printf("\n-----------------------------------------\n\n\n");
 		}
 		free_cmd(cmd);
 		add_history(str);
@@ -78,4 +98,4 @@ int	main(void)
 	}
 }
 
-//gcc builtin/echo.c builtin/exit.c parsing/chunk.c free.c init_env_list.c parsing/init.c parsing/tokenizer.c parsing/iterator.c libft.a -lreadline
+//gcc -lreadline -fsanitize=address builtin/echo.c libft.a parsing/chunk.c builtin/exit.c free.c init_env_list.c parsing/init.c parsing/tokenizer.c parsing/iterator.c -o hyeslim

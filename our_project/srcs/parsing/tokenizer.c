@@ -6,7 +6,7 @@
 /*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:04:03 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/08 21:57:52 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/09 17:51:34 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,33 @@ t_tok	*tokenize(char *str)
 	t_tok	*tok;
 	t_tok	*curr;
 
-	tok = (t_tok *)malloc(sizeof(t_tok));
+	// tok = (t_tok *)malloc(sizeof(t_tok));
+	tok = ft_wrap_malloc(sizeof(t_tok));
 	init_tok(&tok);
 	curr = tok;
-	if (!tok || !str)
-		return (NULL);
+	// if (!tok || !str)
+		// return (NULL);
 	while (*str)
 	{
-		if (*str == ' ')
+		if (*str == '"')
+			str += token_cmd(&curr, str, DOUQ);
+		else if (*str == '\'')
+			str += token_cmd(&curr, str, SINQ);
+		else if (*str == '<' || *str == '>')
+			str += token_red(&curr, str);
+		else if (*str == ' ' || *str == '|')
+		{
+			if (*str == '|')
+				add_tok(&curr, ft_strdup("|"), PIPE);
 			str++;
+		}
+		else
+			str += token_cmd(&curr, str, STR);
+	}
+	return (tok);
+}
+
+/*
 		else if (ft_isalnum(*str))
 			str += token_cmd(&curr, str, STR);
 		else if (*str == '"')
@@ -89,6 +107,4 @@ t_tok	*tokenize(char *str)
 			str += token_red(&curr, str);
 		else if (*str++ == '|')
 			add_tok(&curr, ft_strdup("|"), PIPE);
-	}
-	return (tok);
-}
+			*/
