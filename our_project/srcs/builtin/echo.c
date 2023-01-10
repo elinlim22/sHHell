@@ -6,7 +6,7 @@
 /*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 22:33:16 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/09 17:38:24 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/10 13:05:17 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	main(void)
 			while (cmd->tok->next)
 			{
 				cmd->tok = cmd->tok->next;
-				// if (ft_strncmp(cmd->tok->str, "echo", 4))
-				// 	say_it(cmd->tok);
+				if (ft_strncmp(cmd->tok->str, "echo", 4))
+					say_it(cmd->tok);
 				printf("TOKEN = [%s : %d] ", cmd->tok->str, cmd->tok->type);
 			}
 			printf("\n");
