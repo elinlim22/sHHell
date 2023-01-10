@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: huipark <huipark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 17:50:45 by hyeslim           #+#    #+#              #
-#    Updated: 2023/01/08 22:32:53 by hyeslim          ###   ########.fr        #
+#    Updated: 2023/01/10 16:38:25 by huipark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ PARSE = ${DIR}parsing/
 SIGNL = ${DIR}signal/
 UTILS = ${DIR}utils/
 
-BLTIN_SRCS = cd echo exit export pwd unset env
+BLTIN_SRCS = echo exit export pwd unset env #cd
 EXECU_SRCS =
 PARSE_SRCS = checker chunk init iterator tokenizer
 SIGNL_SRCS = signal

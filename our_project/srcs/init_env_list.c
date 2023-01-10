@@ -6,13 +6,13 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:06:25 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/09 01:15:04 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/10 20:40:59 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	*get_env_key(char *line)
+char	*get_env_key(char *line)
 {
 	char	*dest;
 	int		i;
@@ -32,7 +32,7 @@ static char	*get_env_key(char *line)
 	return (dest);
 }
 
-static char	*get_env_value(char *line)
+char	*get_env_value(char *line)
 {
 	char	*dest;
 	int		i;
@@ -40,27 +40,29 @@ static char	*get_env_value(char *line)
 	i = 0;
 	while (line[i] && line[i] != '=')
 		i++;
+	if (line[i]== '\0')
+		return (NULL);
 	dest = ft_strdup(line + (i + 1));
 	if (!dest)
 		exit (1);
 	return (dest);
 }
 
-static void	newnode(t_env *head, int i)
+static void	newnode(t_env *head, char *envp[], int i)
 {
 	t_env	*newnode;
 
 	newnode = malloc(sizeof(t_env));
 	while (head->next != NULL)
 		head = head->next;
-	newnode->key = get_env_key(environ[i]);
-	newnode->value = get_env_value(environ[i]);
+	newnode->key = get_env_key(envp[i]);
+	newnode->value = get_env_value(envp[i]);
 	newnode->next = NULL;
 	newnode->prev = head;
 	head->next = newnode;
 }
 
-void	init_env(t_env *env)
+void	init_env(t_env *env, char *envp[])
 {
 	int	i;
 
@@ -69,6 +71,6 @@ void	init_env(t_env *env)
 	env->value = NULL;
 	env->next = NULL;
 	env->prev = NULL;
-	while (environ[i])
-		newnode(env, i++);
+	while (envp[i])
+		newnode(env, envp, i++);
 }

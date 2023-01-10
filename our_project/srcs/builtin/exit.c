@@ -6,7 +6,7 @@
 /*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 16:07:58 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/08 23:35:49 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/10 16:21:58 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,5 @@ int	exit_check(char *str)
 		return (0);
 	num = ft_substr(str, 0, i);
 	str += i + 1;
-	return (exit_final_check(num, str));
+	exit(exit_final_check(num, str));
 }

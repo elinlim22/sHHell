@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:04:03 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/10 13:04:54 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/10 15:07:46 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ static int	token_cmd(t_tok **tok, char *str, int type)
 	int		len;
 
 	len = 0;
-	// if (type == STR)
-	// 	while (str[len] != ' ' && ft_isalnum(str[len]))
-	// 		len++;
 	if (type == STR)
 		while (str[len] != ' ' && str[len])
 			len++;
@@ -73,12 +70,9 @@ t_tok	*tokenize(char *str)
 	t_tok	*tok;
 	t_tok	*curr;
 
-	// tok = (t_tok *)malloc(sizeof(t_tok));
 	tok = ft_wrap_malloc(sizeof(t_tok));
 	init_tok(&tok);
 	curr = tok;
-	// if (!tok || !str)
-	// 	return (NULL);
 	while (*str)
 	{
 		if (*str == '"')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/08 23:35:29 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/10 21:46:58 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,31 @@ static t_cmd	*ready_to_run(char *str)
 	return (final);
 }
 
-int	main(void)
+void	argc_check(int argc, char *argv[])
+{
+	if (argc != 1)
+	{
+		printf("minihell: %s: no arguments required\n", argv[1]);
+		exit (127);
+	}
+}
+
+int	main(int argc, char *argv[], char *envp[])
 {
 	char	*str;
 	t_cmd	*cmd;
 	t_env	env;
 
-	init_env(&env);
+	argc_check(argc, argv);
+	init_env(&env, envp);
 	while (1)
 	{
 		int	i = 1;
 		str = readline("\033[0;35mminihell $> \033[0m");
+		if (!str)
+			return (1);
 		cmd = ready_to_run(str);
+		run_export(cmd->next->tok->next, env);		//test
 		while (!exit_check(str) && cmd->next)
 		{
 			cmd = cmd->next;
@@ -43,6 +56,8 @@ int	main(void)
 			while (cmd->tok->next)
 			{
 				cmd->tok = cmd->tok->next;
+				// if (!ft_strncmp(cmd->tok->str, "echo", 4))
+				// 	say_it(cmd->tok);
 				printf("TOKEN = [%s : %d] ", cmd->tok->str, cmd->tok->type);
 			}
 			printf("\n");
@@ -53,6 +68,7 @@ int	main(void)
 			}
 			printf("\n-----------------------------------------\n\n\n");
 		}
+		print_env(env);									//test
 		free_cmd(cmd);
 		add_history(str);
 		free(str);

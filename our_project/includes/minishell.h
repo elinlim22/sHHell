@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/09 15:42:49 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/10 20:41:14 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <sys/stat.h> //stat, lstat, fstat
 # include <sys/wait.h>
 # include <curses.h> //tgetent
+
+# define KEY 0
+# define VALUE 1
 
 enum e_pars
 {
@@ -69,17 +72,23 @@ typedef struct s_env
 
 /* ------------ builtin directory ------------ */
 // cd.c
+int		check_dir(t_env *env, char *headto);
+void	cd(t_tok *tok, t_env *env);
 
 // echo.c
 void	say_it(t_tok *tok);
 
 // env.c
+void	print_env(t_env env);
+char	*ft_getenv(t_env *env, char *pathname);
+t_env	*find_env(t_env *env, char *keyname, int key_or_value);
 
 // exit.c
 int		exit_check(char *str);
 void	exit_argm_check(char *msg, char *argm, int status);
 
 // export.c
+void	run_export(t_tok *tok, t_env env);
 
 // pwd.c
 
@@ -89,17 +98,22 @@ void	exit_argm_check(char *msg, char *argm, int status);
 
 /* ------------ parsing directory ------------ */
 // checker.c
+
 int		check_arg(char *str);
+
 // chunk.c
 t_cmd	*chunk(t_tok **tok);
+
 // init.c
 void	add_red(t_cmd *cmd);
 void	init_red(t_cmd	*cmd);
 void	add_tok(t_tok **tok, char *str, int type);
 void	init_tok(t_tok **tok);
+
 // iterator.c
 void	explore_token(t_cmd *cmd);
 void	redirection_tok(t_cmd *cmd);
+
 // tokenizer.c
 t_tok	*tokenize(char *str);
 
@@ -108,12 +122,14 @@ t_tok	*tokenize(char *str);
 /* ------------ utils directory ------------ */
 
 // init_env_list.c
-void	init_env(t_env *env);
+char	*get_env_key(char *line);
+char	*get_env_value(char *line);
+void	init_env(t_env *env, char *envp[]);
 
 // free.c
 void	free_cmd(t_cmd *cmd);
 
-extern char	**environ;
+extern int	g_exit_status;
 
 #endif
 // signal handling
