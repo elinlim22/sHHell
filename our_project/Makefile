@@ -6,7 +6,7 @@
 #    By: huipark <huipark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 17:50:45 by hyeslim           #+#    #+#              #
-#    Updated: 2023/01/10 16:38:25 by huipark          ###   ########.fr        #
+#    Updated: 2023/01/11 21:01:07 by huipark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minihell
 
 # compiler
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address ##
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address -g ##
 LINK_FLAG = -lreadline
 COMP_FLAG = -I includes/minishell.h
 
@@ -26,10 +26,10 @@ PARSE = ${DIR}parsing/
 SIGNL = ${DIR}signal/
 UTILS = ${DIR}utils/
 
-BLTIN_SRCS = echo exit export pwd unset env #cd
+BLTIN_SRCS = echo exit export export_utils pwd unset env cd
 EXECU_SRCS =
 PARSE_SRCS = checker chunk init iterator tokenizer
-SIGNL_SRCS = signal
+SIGNL_SRCS = # signal
 UTILS_SRCS =
 
 # srcs
@@ -40,7 +40,8 @@ SRCS = ${addsuffix .c, $(addprefix ${BLTIN}, ${BLTIN_SRCS})} \
 		${addsuffix .c, $(addprefix ${UTILS}, ${UTILS_SRCS})} \
 		${DIR}free.c \
 		${DIR}init_env_list.c \
-		${DIR}main.c
+		${DIR}main.c \
+		$(DIR)run_cmd.c
 
 all : ${NAME}
 

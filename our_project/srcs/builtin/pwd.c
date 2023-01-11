@@ -3,13 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 22:13:21 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/10 22:13:22 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/11 18:57:34 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../includes/minishell.h"
+
+void	run_pwd(void)
+{
+	char	pwd[PATH_MAX];
+
+	if (getcwd(pwd, PATH_MAX))
+		printf("%s\n", pwd);
+	else
+		exit(1);
+}
 /* example(영민이꺼)
 #include "../minishell.h"
 

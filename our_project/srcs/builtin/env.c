@@ -6,35 +6,26 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 22:33:15 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/10 19:37:57 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/11 17:06:11 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	print_env(t_env env)
+void	print_env(t_tok *tok, t_env env)
 {
-	while (env.next)
+	if (!tok->next)
 	{
-		env = (*env.next);
-		if (env.value)
-			printf("%s=%s\n", env.key, env.value);
+		while (env.next)
+		{
+			env = (*env.next);
+			if (env.value)
+				printf("%s=%s\n", env.key, env.value);
+		}
 	}
+	else
+		printf("env: %s: No such file or directory\n", tok->next->str);
 }
-
-// char	*ft_getenv(t_env *env, char *pathname)
-// {
-// 	t_env	*curr;
-
-// 	curr = env->next;
-// 	while (curr)
-// 	{
-// 		if (!ft_strncmp(curr->key, pathname, ft_strlen(pathname)))
-// 			return (curr->value);
-// 		curr = curr->next;
-// 	}
-// 	return (NULL);
-// }
 
 t_env	*find_env(t_env *env, char *path, int key_or_value)
 {
@@ -57,17 +48,3 @@ t_env	*find_env(t_env *env, char *path, int key_or_value)
 	}
 	return (NULL);
 }
-
-// t_env	*find_key(t_env *env, char *pathname)
-// {
-// 	t_env	*curr;
-
-// 	curr = env->next;
-// 	while (curr)
-// 	{
-// 		if (ft_strnstr(curr->value, pathname, ft_strlen(pathname)))
-// 			return (curr);
-// 		curr = curr->next;
-// 	}
-// 	return (NULL);
-// }

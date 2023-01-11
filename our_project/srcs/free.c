@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:39:09 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/07 20:39:14 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/11 20:52:04 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,17 @@ void	free_cmd(t_cmd *cmd)
 		}
 		free(cmd);
 		cmd = next_cmd;
+	}
+}
+
+void	free_export(t_env *copy_env)
+{
+	t_env	*prev_env;
+
+	while (copy_env->prev)
+	{
+		prev_env = copy_env->prev;
+		free(copy_env);
+		copy_env = prev_env;
 	}
 }

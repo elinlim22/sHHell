@@ -6,13 +6,13 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/10 21:46:58 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/11 22:08:27 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static t_cmd	*ready_to_run(char *str)
+t_cmd	*ready_to_run(char *str)
 {
 	t_cmd	*final;
 	t_tok	*token;
@@ -47,8 +47,8 @@ int	main(int argc, char *argv[], char *envp[])
 		if (!str)
 			return (1);
 		cmd = ready_to_run(str);
-		run_export(cmd->next->tok->next, env);		//test
-		while (!exit_check(str) && cmd->next)
+		builtin_check(cmd, env);
+		while (cmd->next)
 		{
 			cmd = cmd->next;
 			printf("-----------------------------------------\n");
@@ -56,8 +56,6 @@ int	main(int argc, char *argv[], char *envp[])
 			while (cmd->tok->next)
 			{
 				cmd->tok = cmd->tok->next;
-				// if (!ft_strncmp(cmd->tok->str, "echo", 4))
-				// 	say_it(cmd->tok);
 				printf("TOKEN = [%s : %d] ", cmd->tok->str, cmd->tok->type);
 			}
 			printf("\n");
@@ -68,19 +66,8 @@ int	main(int argc, char *argv[], char *envp[])
 			}
 			printf("\n-----------------------------------------\n\n\n");
 		}
-		print_env(env);									//test
 		free_cmd(cmd);
 		add_history(str);
 		free(str);
 	}
 }
-
-// for (t_cmd *curr = cmd->next; curr->next; curr = curr->next)
-// {
-// 	for (t_tok *ttt = curr->tok->next; ttt->next; ttt = ttt->next)
-// 		printf("[%s : %d] ", ttt->str, ttt->type);
-// 	printf("\n");
-// 	for (t_red *rrr = curr->red->next; rrr->next; rrr = rrr->next)
-// 		printf("[%s : %d] ", rrr->str, rrr->type);
-// 	printf("\n");
-// }

@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/10 20:41:14 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/11 22:08:29 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_command
 {
 	t_tok				*tok;
 	t_red				*red;
+	int					STDIN_FD;
+	int					STDOUT_FD;
 	struct s_command	*next;
 }				t_cmd;
 
@@ -72,28 +74,35 @@ typedef struct s_env
 
 /* ------------ builtin directory ------------ */
 // cd.c
-int		check_dir(t_env *env, char *headto);
-void	cd(t_tok *tok, t_env *env);
+void	check_dir(t_env *env, char *headto);
+void	change_dir(t_env *env, char *headto);
+void	set_oldpwd(t_env *env, char *path);
+int		cd(t_tok *tok, t_env *env);
 
 // echo.c
 void	say_it(t_tok *tok);
 
 // env.c
-void	print_env(t_env env);
+void	print_env(t_tok *tok, t_env env);
 char	*ft_getenv(t_env *env, char *pathname);
 t_env	*find_env(t_env *env, char *keyname, int key_or_value);
 
 // exit.c
-int		exit_check(char *str);
-void	exit_argm_check(char *msg, char *argm, int status);
+void	exit_check(t_tok *tok);
+void	exit_argm_error(char *msg, char *argm, int status);
 
 // export.c
 void	run_export(t_tok *tok, t_env env);
+// export_utils.c
+void	env_newnode(t_env env, t_env *temp);
+void	value_swap(t_env *copy_env,t_env *temp_env);
+void	add_env(t_env *env, char *str);
+t_env	*env_copy(t_env env);
 
 // pwd.c
-
+void	run_pwd(void);
 // unset.c
-
+void	run_unset(t_tok *tok, t_env *env);
 /* ------------ execute directory ------------ */
 
 /* ------------ parsing directory ------------ */
@@ -128,6 +137,16 @@ void	init_env(t_env *env, char *envp[]);
 
 // free.c
 void	free_cmd(t_cmd *cmd);
+void	free_export(t_env *copy_env);
+
+// run_cmd.c
+void	do_parent(t_cmd *cmd, t_env env);
+void	builtin_check(t_cmd *cmd, t_env env);
+
+// main.c
+t_cmd	*ready_to_run(char *str);
+void	argc_check(int argc, char *argv[]);
+
 
 extern int	g_exit_status;
 
