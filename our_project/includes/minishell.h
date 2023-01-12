@@ -3,22 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/11 22:08:29 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/12 15:217:5530 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+extern int	g_exit_status;
+
 # include "../libft/libft.h"
 # include <dirent.h> //opendir, readdir, closedir
 # include <fcntl.h>
-# include <readline/readline.h> //readline, rl_...
-# include <signal.h>
 # include <stdio.h>
+# include <readline/readline.h> //readline, rl_...
+# include <readline/history.h>
+# include <signal.h>
+# include <term.h>
 # include <sys/ioctl.h> //ioctl
 # include <sys/stat.h> //stat, lstat, fstat
 # include <sys/wait.h>
@@ -52,6 +56,8 @@ typedef struct s_redirection
 {
 	char					*str;
 	int						type;
+	int						in_fd;
+	int						out_fd;
 	struct s_redirection	*next;
 }				t_red;
 
@@ -127,6 +133,18 @@ void	redirection_tok(t_cmd *cmd);
 t_tok	*tokenize(char *str);
 
 /* ------------ signal directory ------------ */
+// signal.c
+void	sig_status(void);
+void	handle_signal_on_newline(void);
+void	handle_signal_while_cmd(void);
+void	signal_redisplay(void);
+
+// signal_utils.c
+void	child_signal_sigint(int signal);
+void	signal_sigint(int signal);
+void	child_signal_sigquit(int signal);
+void	child_signal_sigterm(int signal);
+void	signal_sigterm(int signal);
 
 /* ------------ utils directory ------------ */
 
@@ -146,9 +164,6 @@ void	builtin_check(t_cmd *cmd, t_env env);
 // main.c
 t_cmd	*ready_to_run(char *str);
 void	argc_check(int argc, char *argv[]);
-
-
-extern int	g_exit_status;
 
 #endif
 // signal handling

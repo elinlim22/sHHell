@@ -6,7 +6,7 @@
 #    By: huipark <huipark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 17:50:45 by hyeslim           #+#    #+#              #
-#    Updated: 2023/01/11 21:01:07 by huipark          ###   ########.fr        #
+#    Updated: 2023/01/12 17:53:04 by huipark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minihell
 # compiler
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address -g ##
-LINK_FLAG = -lreadline
+LINK_FLAG = -lreadline -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include
 COMP_FLAG = -I includes/minishell.h
 
 # directories
@@ -29,7 +29,7 @@ UTILS = ${DIR}utils/
 BLTIN_SRCS = echo exit export export_utils pwd unset env cd
 EXECU_SRCS =
 PARSE_SRCS = checker chunk init iterator tokenizer
-SIGNL_SRCS = # signal
+SIGNL_SRCS = signal signal_utils
 UTILS_SRCS =
 
 # srcs

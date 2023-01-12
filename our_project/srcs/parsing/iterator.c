@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iterator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:41:25 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/08 21:57:55 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/12 15:17:57 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static void	newnode(t_cmd *cmd, t_tok *token, int type)
 	newnode->str = token->str;
 	newnode->type = type;
 	newnode->next = NULL;
+	newnode->in_fd = -1;
+	newnode->out_fd = -1;
 	cmd->red->next = newnode;
 	cmd->red = temp_head;
 }

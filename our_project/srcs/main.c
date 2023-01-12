@@ -6,11 +6,13 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/11 22:08:27 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/12 17:53:04 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	g_exit_status = 0;
 
 t_cmd	*ready_to_run(char *str)
 {
@@ -40,12 +42,15 @@ int	main(int argc, char *argv[], char *envp[])
 
 	argc_check(argc, argv);
 	init_env(&env, envp);
+	sig_status();
 	while (1)
 	{
 		int	i = 1;
 		str = readline("\033[0;35mminihell $> \033[0m");
 		if (!str)
-			return (1);
+			break;
+		if (*str == '\0')
+			continue;
 		cmd = ready_to_run(str);
 		builtin_check(cmd, env);
 		while (cmd->next)
