@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/12 17:53:04 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/13 22:10:33 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,34 +45,38 @@ int	main(int argc, char *argv[], char *envp[])
 	sig_status();
 	while (1)
 	{
-		int	i = 1;
+		// int	i = 1;
 		str = readline("\033[0;35mminihell $> \033[0m");
 		if (!str)
 			break;
 		if (*str == '\0')
 			continue;
 		cmd = ready_to_run(str);
-		builtin_check(cmd, env);
-		while (cmd->next)
-		{
-			cmd = cmd->next;
-			printf("-----------------------------------------\n");
-			printf("cmd node%d\n", i++);
-			while (cmd->tok->next)
-			{
-				cmd->tok = cmd->tok->next;
-				printf("TOKEN = [%s : %d] ", cmd->tok->str, cmd->tok->type);
-			}
-			printf("\n");
-			while (cmd->red->next)
-			{
-				cmd->red = cmd->red->next;
-				printf("RED = [%s : %d] ", cmd->red->str, cmd->red->type);
-			}
-			printf("\n-----------------------------------------\n\n\n");
-		}
+		run_cmd(cmd, env, envp);
+		while (wait(0) != -1)
+			;
 		free_cmd(cmd);
 		add_history(str);
 		free(str);
 	}
 }
+
+
+		// while (cmd->next)
+		// {
+		// 	cmd = cmd->next;
+		// 	printf("------------------------------------------\n");
+		// 	printf("cmd node%d\n", i++);
+		// 	while (cmd->tok->next)
+		// 	{
+		// 		cmd->tok = cmd->tok->next;
+		// 		printf("TOKEN = [%s : %d] ", cmd->tok->str, cmd->tok->type);
+		// 	}
+		// 	printf("\n");
+		// 	while (cmd->red->next)
+		// 	{
+		// 		cmd->red = cmd->red->next;
+		// 		printf("RED = [%s : %d] ", cmd->red->str, cmd->red->type);
+		// 	}
+		// 	printf("\n-----------------------------------------\n\n\n");
+		// }

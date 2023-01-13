@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:22:21 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/12 15:17:19 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/13 18:58:18 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	add_red(t_cmd *cmd)
 		newnode->str = NULL;
 		newnode->type = 0;
 		newnode->next = NULL;
-		newnode->in_fd = -1;
-		newnode->out_fd = -1;
 		cmd->red = newnode;
 	}
 }

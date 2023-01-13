@@ -56,8 +56,6 @@ typedef struct s_redirection
 {
 	char					*str;
 	int						type;
-	int						in_fd;
-	int						out_fd;
 	struct s_redirection	*next;
 }				t_red;
 
@@ -67,7 +65,11 @@ typedef struct s_command
 	t_red				*red;
 	int					STDIN_FD;
 	int					STDOUT_FD;
+	int					in_fd;
+	int					out_fd;
+	int					fd[2];
 	struct s_command	*next;
+	struct s_command	*prev;
 }				t_cmd;
 
 typedef struct s_env
@@ -106,7 +108,7 @@ void	add_env(t_env *env, char *str);
 t_env	*env_copy(t_env env);
 
 // pwd.c
-void	run_pwd(void);
+int	run_pwd(void);
 // unset.c
 void	run_unset(t_tok *tok, t_env *env);
 /* ------------ execute directory ------------ */
@@ -158,8 +160,7 @@ void	free_cmd(t_cmd *cmd);
 void	free_export(t_env *copy_env);
 
 // run_cmd.c
-void	do_parent(t_cmd *cmd, t_env env);
-void	builtin_check(t_cmd *cmd, t_env env);
+void	run_cmd(t_cmd *cmd, t_env env, char *envp[]);
 
 // main.c
 t_cmd	*ready_to_run(char *str);

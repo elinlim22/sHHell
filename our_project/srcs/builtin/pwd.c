@@ -6,13 +6,13 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 22:13:21 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/11 18:57:34 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/13 22:10:43 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	run_pwd(void)
+int	run_pwd(void)
 {
 	char	pwd[PATH_MAX];
 
@@ -20,6 +20,7 @@ void	run_pwd(void)
 		printf("%s\n", pwd);
 	else
 		exit(1);
+	return (EXIT_SUCCESS);
 }
 /* example(영민이꺼)
 #include "../minishell.h"
