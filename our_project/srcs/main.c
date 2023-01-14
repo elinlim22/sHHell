@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/14 19:12:38 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/14 240:416:09 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ int	main(int argc, char *argv[], char *envp[])
 		if (*str == '\0')
 			continue;
 		cmd = ready_to_run(str);
-		run_cmd(cmd, env, envp);
+		// check_dollar(&env, cmd->next->tok);
+		if (cmd->next)
+			run_cmd(cmd, env, envp);
 		free_cmd(cmd);
 		add_history(str);
 		free(str);

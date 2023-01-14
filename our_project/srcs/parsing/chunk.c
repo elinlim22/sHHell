@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 14:19:26 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/13 22:10:35 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/14 22:27:00 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_cmd	*chunk(t_tok **tok)
 	cmd->tok = NULL;
 	cmd->red = NULL;
 	cmd->prev = NULL;
+	cmd->next = NULL;
 	cmd->STDIN_FD = dup(STDIN_FILENO);
 	cmd->STDOUT_FD = dup(STDOUT_FILENO);
 	cmd->fd[0] = -2;

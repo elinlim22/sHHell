@@ -27,6 +27,7 @@ void	sig_status(void)
 	term.c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	pid = waitpid(-1, &status, WNOHANG);
+	printf("sig pid = %d\n", pid);
 	if (pid == -1) //자식이 없을때
 		handle_signal_on_newline();
 	else

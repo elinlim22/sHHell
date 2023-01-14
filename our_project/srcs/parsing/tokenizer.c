@@ -6,7 +6,7 @@
 /*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:04:03 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/13 16:08:132 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/14 22:22:7 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,34 +107,64 @@ t_tok	*tokenize(char *str)
 // 		i++;
 // 	path = ft_substr(ptr, 0, i);
 // 	value = find_env(env, path, KEY);
-// return (value->)
+// 	return ()
 // }
 
-// static void	sub_parsing(t_env *env, t_tok *tok)
-// {
-// 	char	*ptr;
-// 	char	*path;
+static char	*sub_parsing(t_env *env, t_tok *tok)
+{
+	char	*path;
+	char	*str;
+	char	*res;
+	char	*temp;
 
-// 	ptr = tok->str;
-// 	path = NULL;
-// 	if (tok->type == DOUQ)
-// 	{
-// 		while (*ptr != '$')
-// 			ptr++;
-// 		path = replace_path(env, ptr);
-// 	}
-// 	else if (tok->type == STR)
-// }
+	path = tok->str;
+	str = NULL;
+	res = NULL;
+	temp = NULL;
+	if (tok->type == DOUQ)
+	{
+		while (*path && *path != '$')
+			path++;
+		path++;
+		// temp = ft_strdup((path + 1));
+		str = path + 1;
+		if (*str == '?')
+			res = ft_strdup(ft_itoa(g_exit_status));
+		else
+		{
+			while (*str && (*str != ' ' || *str != '!' || *str != '_' || *str != '&'))
+				str++;
+			ft_strlcpy(temp, (path + 1), str - path);
+			res = ft_strdup((find_env(env, temp, KEY))->value);
+			free(temp);
+			ft_addstr(&res, str);
+		}
+	}
+	else if (tok->type == STR)
+	{
+		if (ft_strchr(tok->str, '?'))
+		{
+			res = ft_strdup(ft_itoa(g_exit_status));
+			ft_addstr(&res, (ft_strchr(tok->str, '?')) + 1);
+		}
+		else
+			res = ft_strdup((find_env(env, (tok->str + 1), KEY))->value);
+	}
+	return (res);
+}
 
-// void	check_dollar(t_env *env, t_tok *tok)
-// {
-// 	t_tok	*curr;
+void	check_dollar(t_env *env, t_tok *tok)
+{
+	t_tok	*curr;
 
-// 	curr = tok->next;
-// 	while (curr)
-// 	{
-// 		if (ft_strchr(tok->str, '$')) //$가 있는 토큰
-// 			sub_parsing(env, curr);
-// 		curr = curr->next;
-// 	}
-// }
+	curr = tok->next;
+	while (curr)
+	{
+		if (ft_strchr(tok->str, '$')) //$가 있는 토큰		//tok->str = 0x0
+		{
+			free(tok->str);
+			tok->str = sub_parsing(env, curr);
+		}
+		curr = curr->next;
+	}
+}

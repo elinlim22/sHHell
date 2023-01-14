@@ -251,6 +251,7 @@ void	run_cmd(t_cmd *cmd, t_env env, char *envp[])
 		{
 			if (pipe(cmd->fd) == -1)
 				perror("miniHell : pipe error");
+			sig_status();
 			pid = fork();
 			if (pid == -1)
 				perror("miniHell : fork_error");

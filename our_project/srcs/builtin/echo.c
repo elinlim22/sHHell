@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 22:33:16 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/14 19:12:44 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/14 22:04:08 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,19 @@ int	say_it(t_tok *tok)
 		curr = curr->next;
 		n_flag = 0;
 	}
-	printf("%s\n", curr->str);
 	while (curr)
 	{
 		i = 0;
 		while (curr->str[i] != '\0')
 		{
-			if (curr->str[i] == '$' && curr->str[i + 1] == '?')
-			{
-				printf("%d", g_exit_status);
-				i += 2;
-			}
+			// if (curr->str[i] == '$' && curr->str[i + 1] == '?')
+			// {
+			// 	printf("%d", g_exit_status);
+			// 	i += 2;
+			// }
 			if (curr->str[i] != '\0')
 			{
-				printf("%c", *curr->str);
+				printf("%c", curr->str[i]);
 				i++;
 			}
 		}

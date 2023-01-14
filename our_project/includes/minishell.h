@@ -135,6 +135,7 @@ void	redirection_tok(t_cmd *cmd);
 
 // tokenizer.c
 t_tok	*tokenize(char *str);
+void	check_dollar(t_env *env, t_tok *tok)
 
 /* ------------ signal directory ------------ */
 // signal.c
