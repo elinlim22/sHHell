@@ -6,13 +6,13 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:23:47 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/11 18:55:01 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/14 19:12:44 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	unset_argm_check(t_tok *tok)
+int	unset_argm_check(t_tok *tok)
 {
 	int	i;
 
@@ -23,8 +23,7 @@ void	unset_argm_check(t_tok *tok)
 		if (!ft_isalpha(tok->str[i]) && tok->str[i] != '_')
 		{
 			printf("miniHHell: unset: `%s': not a valid identifier\n", tok->str);
-			// g_exit_status = 1;
-			return ;
+			return (EXIT_FAILURE);
 		}
 		i++;
 		while (tok->str[i])
@@ -32,22 +31,23 @@ void	unset_argm_check(t_tok *tok)
 			if (!ft_isalnum(tok->str[i]) && tok->str[i] != '_')
 			{
 				printf("miniHHell: unset: `%s': not a valid identifier\n", tok->str);
-				// g_exit_status = 1;
-				return ;
+				return (EXIT_FAILURE);
 			}
 			i++;
 		}
 	}
+	return (EXIT_SUCCESS);
 }
 
-void	run_unset(t_tok *tok, t_env *env)
+int	run_unset(t_tok *tok, t_env *env)
 {
 	t_env	*temp_env;
 
-	unset_argm_check(tok);
-	env = env->next;
-	while (env)
+	if (unset_argm_check(tok))
+		return (EXIT_FAILURE);
+	while (env->next)
 	{
+		env = env->next;
 		if (!ft_strcmp(tok->next->str, env->key))
 		{
 			temp_env = env->prev;
@@ -64,8 +64,6 @@ void	run_unset(t_tok *tok, t_env *env)
 			tok = tok->next;
 			env = temp_env;
 		}
-		env = env->next;
 	}
-	// g_exit_status = 0;
-	return ;
+	return (EXIT_SUCCESS);
 }

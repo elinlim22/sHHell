@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:52:35 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/11 20:56:13 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/14 14:33:16 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_env	*env_copy(t_env env)
 	return (temp);
 }
 
-void	add_env(t_env *env, char *str)
+int	add_env(t_env *env, char *str)
 {
 	t_env	*newnode;
 
@@ -68,4 +68,5 @@ void	add_env(t_env *env, char *str)
 	newnode->next = NULL;
 	newnode->prev = env;
 	env->next = newnode;
+	return (EXIT_SUCCESS);
 }

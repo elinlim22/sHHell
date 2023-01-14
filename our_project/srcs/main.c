@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/13 22:10:33 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/14 19:12:38 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ int	main(int argc, char *argv[], char *envp[])
 			continue;
 		cmd = ready_to_run(str);
 		run_cmd(cmd, env, envp);
-		while (wait(0) != -1)
-			;
 		free_cmd(cmd);
 		add_history(str);
 		free(str);

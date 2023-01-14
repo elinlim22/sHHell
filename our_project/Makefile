@@ -6,7 +6,7 @@
 #    By: huipark <huipark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 17:50:45 by hyeslim           #+#    #+#              #
-#    Updated: 2023/01/13 22:10:45 by huipark          ###   ########.fr        #
+#    Updated: 2023/01/14 19:12:41 by huipark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minihell
 # compiler
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
-LINK_FLAG = -lreadline -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include
+LINK_FLAG = -lreadline -L/Users/huipark/.brew/opt/readline/lib -I/Users/huipark/.brew/opt/readline/include #-L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include
 COMP_FLAG = -I includes/minishell.h
 
 # directories

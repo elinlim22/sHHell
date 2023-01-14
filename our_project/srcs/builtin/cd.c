@@ -6,13 +6,13 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:02:23 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/11 21:52:31 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/14 18:54:59 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	check_dir(t_env *env, char *headto)
+int	check_dir(t_env *env, char *headto)
 {
 	if (chdir(headto))
 	{
@@ -23,9 +23,11 @@ void	check_dir(t_env *env, char *headto)
 		else
 			printf("not a directory: ");
 		printf("%s\n", headto);
+		return (EXIT_FAILURE);
 	}
 	else
 		change_dir(env, headto);
+	return (EXIT_SUCCESS);
 }
 
 void	change_dir(t_env *env, char *headto)
@@ -79,10 +81,14 @@ int	cd(t_tok *tok, t_env *env) // cd 다음 토큰이 와야함
 			printf("cd: HOME not set\n");
 			return (EXIT_FAILURE);
 		}
-		check_dir(env, temp->value);
+		if (check_dir(env, temp->value))
+			return (EXIT_FAILURE);
 	}
 	else
-		check_dir(env, path_tok->str);
+	{
+		if (check_dir(env, path_tok->str))
+			return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 

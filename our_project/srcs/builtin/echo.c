@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 22:33:16 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/10 15:01:38 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/14 19:12:44 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ static int	all_n(char *str)
 	return (1);
 }
 
-void	say_it(t_tok *tok)
+int	say_it(t_tok *tok)
 {
 	t_tok	*curr;
 	int		n_flag;
+	int		i;
 
 	curr = tok->next;
 	n_flag = 1;
@@ -36,62 +37,26 @@ void	say_it(t_tok *tok)
 		curr = curr->next;
 		n_flag = 0;
 	}
+	printf("%s\n", curr->str);
 	while (curr)
 	{
-		printf("%s ", curr->str);
+		i = 0;
+		while (curr->str[i] != '\0')
+		{
+			if (curr->str[i] == '$' && curr->str[i + 1] == '?')
+			{
+				printf("%d", g_exit_status);
+				i += 2;
+			}
+			if (curr->str[i] != '\0')
+			{
+				printf("%c", *curr->str);
+				i++;
+			}
+		}
 		curr = curr->next;
 	}
 	if (n_flag)
 		printf("\n");
+	return (EXIT_SUCCESS);
 }
-
-// static t_cmd	*ready_to_run(char *str)
-// {
-// 	t_cmd	*final;
-// 	t_tok	*token;
-
-// 	token = tokenize(str);
-// 	final = chunk(&token);
-// 	init_red(final);
-// 	return (final);
-// }
-
-// int	main(void)
-// {
-// 	char	*str;
-// 	t_cmd	*cmd;
-// 	t_env	env;
-
-// 	init_env(&env);
-// 	while (1)
-// 	{
-// 		int	i = 1;
-// 		str = readline("\033[0;35mminihell $> \033[0m");
-// 		cmd = ready_to_run(str);
-// 		while (!exit_check(str) && cmd->next)
-// 		{
-// 			cmd = cmd->next;
-// 			printf("-----------------------------------------\n");
-// 			printf("cmd node%d\n", i++);
-// 			while (cmd->tok->next)
-// 			{
-// 				cmd->tok = cmd->tok->next;
-// 				if (!ft_strncmp(cmd->tok->str, "echo", 4))
-// 					say_it(cmd->tok);
-// 				// printf("TOKEN = [%s : %d] ", cmd->tok->str, cmd->tok->type);
-// 			}
-// 			printf("\n");
-// 			while (cmd->red->next)
-// 			{
-// 				cmd->red = cmd->red->next;
-// 				// printf("RED = [%s : %d] ", cmd->red->str, cmd->red->type);
-// 			}
-// 			printf("\n-----------------------------------------\n\n\n");
-// 		}
-// 		free_cmd(cmd);
-// 		add_history(str);
-// 		free(str);
-// 	}
-// }
-
-// //gcc -lreadline -fsanitize=address builtin/echo.c libft.a parsing/chunk.c builtin/exit.c free.c init_env_list.c parsing/init.c parsing/tokenizer.c parsing/iterator.c -o hyeslim

@@ -6,13 +6,13 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 22:33:15 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/11 17:06:11 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/14 19:12:42 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	print_env(t_tok *tok, t_env env)
+int	print_env(t_tok *tok, t_env env)
 {
 	if (!tok->next)
 	{
@@ -22,9 +22,13 @@ void	print_env(t_tok *tok, t_env env)
 			if (env.value)
 				printf("%s=%s\n", env.key, env.value);
 		}
+		return (EXIT_SUCCESS);
 	}
 	else
+	{
 		printf("env: %s: No such file or directory\n", tok->next->str);
+		return (EXIT_FAILURE);
+	}
 }
 
 t_env	*find_env(t_env *env, char *path, int key_or_value)

@@ -6,13 +6,13 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 23:04:02 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/11 21:52:01 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/14 19:12:43 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	print_export(t_env *copy_env)
+static int	print_export(t_env *copy_env)
 {
 	while (copy_env->prev)
 		copy_env = copy_env->prev;
@@ -29,9 +29,10 @@ static void	print_export(t_env *copy_env)
 			printf("\n");
 	}
 	free_export(copy_env);
+	return (EXIT_SUCCESS);
 }
 
-void	export_argm_check(t_tok *tok, t_env env)
+int	export_argm_check(t_tok *tok, t_env env)
 {
 	int	i;
 
@@ -39,25 +40,21 @@ void	export_argm_check(t_tok *tok, t_env env)
 	if (!ft_isalpha(tok->str[i]) && tok->str[i] != '_')
 	{
 		printf("bash: export: `%s': not a valid identifier\n", tok->str);
-		// g_exit_status = 1;
-		return ;
+		return (EXIT_FAILURE);
 	}
-	printf("%s\n", tok->str);
-	if ((tok->str[i] == '_' && tok->str[i + 1] == '='
-	&& tok->str[i + 2] == '\0'))
-		exit(0);
+	if (tok->str[i] == '_' && tok->str[i + 1] == '=')
+		return (EXIT_SUCCESS);
 	while (tok->str[i])
 	{
 		if (!ft_isalnum(tok->str[i]) && tok->str[i] != '_'
 			&& tok->str[i] != '=')
 		{
 			printf("bash: export: `%s': not a valid identifier\n", tok->str);
-			// g_exit_status = 1;
-			return ;
+			return (EXIT_FAILURE);
 		}
 		i++;
 	}
-	add_env(&env, tok->str);
+	return (add_env(&env, tok->str));
 }
 
 int	cover_up_env(t_env *env, char *src)
@@ -67,12 +64,10 @@ int	cover_up_env(t_env *env, char *src)
 	str = get_env_value(src);
 	if (str)
 	{
-		if (*str == '\0')
-			return (0);
 		free(env->value);
 		env->value = str;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 static int	existent_check(t_tok *tok, t_env *env)
@@ -92,15 +87,14 @@ static int	existent_check(t_tok *tok, t_env *env)
 	while (env->next)
 	{
 		env = env->next;
-		if (!ft_strcmp(key, env->key))
+		if (!ft_strcmp(key, env->key) && *key != '_')
 			return(cover_up_env(env, tok->str));
 	}
 	env = head;
-	export_argm_check(tok, *env);
-	return (0);
+	return (export_argm_check(tok, *env));
 }
 
-void	run_export(t_tok *tok, t_env env)
+int	run_export(t_tok *tok, t_env env)
 {
 	t_env	*temp_env;
 	t_env	*copy_env;
@@ -110,8 +104,9 @@ void	run_export(t_tok *tok, t_env env)
 		while (tok->next)
 		{
 			tok = tok->next;
-			existent_check(tok, &env);
+			return (existent_check(tok, &env));
 		}
+		return (EXIT_SUCCESS);
 	}
 	else
 	{
@@ -127,6 +122,6 @@ void	run_export(t_tok *tok, t_env env)
 					value_swap(copy_env, temp_env);
 			}
 		}
-		print_export(copy_env);
+		return (print_export(copy_env));
 	}
 }

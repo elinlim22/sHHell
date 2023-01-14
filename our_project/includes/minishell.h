@@ -27,6 +27,8 @@ extern int	g_exit_status;
 # include <sys/stat.h> //stat, lstat, fstat
 # include <sys/wait.h>
 # include <curses.h> //tgetent
+# include <string.h> //strerror
+# include <errno.h>
 
 # define KEY 0
 # define VALUE 1
@@ -82,35 +84,35 @@ typedef struct s_env
 
 /* ------------ builtin directory ------------ */
 // cd.c
-void	check_dir(t_env *env, char *headto);
+int		check_dir(t_env *env, char *headto);
 void	change_dir(t_env *env, char *headto);
 void	set_oldpwd(t_env *env, char *path);
 int		cd(t_tok *tok, t_env *env);
 
 // echo.c
-void	say_it(t_tok *tok);
+int	say_it(t_tok *tok);
 
 // env.c
-void	print_env(t_tok *tok, t_env env);
+int		print_env(t_tok *tok, t_env env);
 char	*ft_getenv(t_env *env, char *pathname);
 t_env	*find_env(t_env *env, char *keyname, int key_or_value);
 
 // exit.c
-void	exit_check(t_tok *tok);
-void	exit_argm_error(char *msg, char *argm, int status);
+int		exit_check(t_tok *tok, t_cmd *cmd);
+void	exit_argm_error(char *msg, char *argm, int status, t_cmd *cmd);
 
 // export.c
-void	run_export(t_tok *tok, t_env env);
+int	run_export(t_tok *tok, t_env env);
 // export_utils.c
 void	env_newnode(t_env env, t_env *temp);
 void	value_swap(t_env *copy_env,t_env *temp_env);
-void	add_env(t_env *env, char *str);
+int		add_env(t_env *env, char *str);
 t_env	*env_copy(t_env env);
 
 // pwd.c
 int	run_pwd(void);
 // unset.c
-void	run_unset(t_tok *tok, t_env *env);
+int	run_unset(t_tok *tok, t_env *env);
 /* ------------ execute directory ------------ */
 
 /* ------------ parsing directory ------------ */

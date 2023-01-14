@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 16:07:58 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/11 17:20:48 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/14 19:12:41 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ void	ft_exit(char *msg, int status)
 	exit(status);
 }
 
-void	exit_argm_error(char *msg, char *argm, int status)
+void	exit_argm_error(char *msg, char *argm, int status, t_cmd *cmd)
 {
+	while (cmd->prev)
+		cmd = cmd->prev;
+	dup2(cmd->STDOUT_FD, STDOUT_FILENO);
 	printf("%s%s:  numeric argument required\n", msg, argm);
 	exit(status);
 }
@@ -40,7 +43,7 @@ int	num_check(char *str)
 	return (0);
 }
 
-void	exit_check(t_tok *tok)
+int	exit_check(t_tok *tok, t_cmd *cmd)
 {
 	int		exit_status;
 
@@ -50,12 +53,11 @@ void	exit_check(t_tok *tok)
 	else if (!ft_strcmp(tok->str, "exit") && tok->next)
 	{
 		if (num_check(tok->next->str))
-			exit_argm_error("miniHell: exit: ", tok->next->str, 255);
+			exit_argm_error("miniHell: exit: ", tok->next->str, 255, cmd);
 		else if (tok->next->next)
 		{
 			printf("miniHell: too many arguments\n");
-			// g_exit_status = 1;
-			return ;
+			return (EXIT_FAILURE);
 		}
 	}
 	exit_status = ft_atoi(tok->next->str);

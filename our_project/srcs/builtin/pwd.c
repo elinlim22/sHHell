@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 22:13:21 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/13 22:10:43 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/14 14:18:33 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	run_pwd(void)
 	if (getcwd(pwd, PATH_MAX))
 		printf("%s\n", pwd);
 	else
-		exit(1);
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 /* example(영민이꺼)

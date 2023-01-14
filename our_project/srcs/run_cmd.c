@@ -85,7 +85,7 @@ char	*get_vaild_cmd(char **path, char *cmd)
 			return (temp_path);
 		i++;
 	}
-	return (NULL);
+	return (cmd);
 }
 
 char	**get_path(char *envp[])
@@ -180,6 +180,8 @@ void	execute(t_cmd *cmd, char *envp[])
 	path = get_path(envp);
 	command[0] = get_vaild_cmd(path, command[0]);
 	execve(command[0], command, envp);
+	printf("miniHell : %s: command not found\n", command[0]);
+	exit (127);
 }
 
 int	do_cmd(t_cmd *cmd, t_env env, char *envp[], int pid)
@@ -190,19 +192,19 @@ int	do_cmd(t_cmd *cmd, t_env env, char *envp[], int pid)
 	if (cmd->tok->next)
 	{
 		if (!ft_strcmp(cmd->tok->next->str, "export"))
-			run_export(cmd->tok->next, env);
+			return (run_export(cmd->tok->next, env));
 		else if (!ft_strcmp(cmd->tok->next->str, "exit"))
-			exit_check(cmd->tok->next);
+			return (exit_check(cmd->tok->next, cmd));
 		else if (!ft_strcmp(cmd->tok->next->str, "env"))
-			print_env(cmd->tok->next, env);
+			return (print_env(cmd->tok->next, env));
 		else if (!ft_strcmp(cmd->tok->next->str, "unset"))
-			run_unset(cmd->tok->next, &env);
+			return (run_unset(cmd->tok->next, &env));
 		else if (!ft_strcmp(cmd->tok->next->str, "pwd"))
 			return (run_pwd());
 		else if (!ft_strcmp(cmd->tok->next->str, "echo"))
-			say_it(cmd->tok->next);
+			return (say_it(cmd->tok->next));
 		else if (!ft_strcmp(cmd->tok->next->str, "cd"))
-			cd(cmd->tok->next->next, &env);
+			return (cd(cmd->tok->next->next, &env));
 	}
 	execute(cmd, envp);
 	return (0);
@@ -234,7 +236,6 @@ void	run_cmd(t_cmd *cmd, t_env env, char *envp[])
 {
 	t_cmd	*head;
 	int		pid;
-	int		exit_status;
 
 	head = cmd;
 	pid = 1;
@@ -242,7 +243,7 @@ void	run_cmd(t_cmd *cmd, t_env env, char *envp[])
 		cmd = cmd->next;
 	if (!cmd->next && is_builtin(cmd))
 	{
-		do_cmd(cmd, env, envp, pid);
+		g_exit_status = do_cmd(cmd, env, envp, pid);
 	}
 	else
 	{
@@ -255,8 +256,8 @@ void	run_cmd(t_cmd *cmd, t_env env, char *envp[])
 				perror("miniHell : fork_error");
 			else if (pid == 0)
 			{
-				exit_status = do_cmd(cmd, env, envp, pid);
-				exit(exit_status);
+				g_exit_status = do_cmd(cmd, env, envp, pid);
+				exit(g_exit_status);
 			}
 			else
 			{
@@ -264,10 +265,11 @@ void	run_cmd(t_cmd *cmd, t_env env, char *envp[])
 				cmd = cmd->next;
 			}
 		}
+		while (wait(&g_exit_status) != -1)
+			;
+		g_exit_status = WEXITSTATUS(g_exit_status);
 	}
 
 	cmd = head;
 	reset_std_fd(cmd);
-	// else
-	// 	do_child
 }
