@@ -6,14 +6,12 @@
 /*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/12 15:217:5530 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/15 19:27:06 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-extern int	g_exit_status;
 
 # include "../libft/libft.h"
 # include <dirent.h> //opendir, readdir, closedir
@@ -32,6 +30,8 @@ extern int	g_exit_status;
 
 # define KEY 0
 # define VALUE 1
+
+extern int	g_exit_status;
 
 enum e_pars
 {
@@ -90,7 +90,7 @@ void	set_oldpwd(t_env *env, char *path);
 int		cd(t_tok *tok, t_env *env);
 
 // echo.c
-int	say_it(t_tok *tok);
+int		say_it(t_tok *tok);
 
 // env.c
 int		print_env(t_tok *tok, t_env env);
@@ -102,22 +102,21 @@ int		exit_check(t_tok *tok, t_cmd *cmd);
 void	exit_argm_error(char *msg, char *argm, int status, t_cmd *cmd);
 
 // export.c
-int	run_export(t_tok *tok, t_env env);
+int		run_export(t_tok *tok, t_env env);
 // export_utils.c
 void	env_newnode(t_env env, t_env *temp);
-void	value_swap(t_env *copy_env,t_env *temp_env);
+void	value_swap(t_env *copy_env, t_env *temp_env);
 int		add_env(t_env *env, char *str);
 t_env	*env_copy(t_env env);
 
 // pwd.c
-int	run_pwd(void);
+int		run_pwd(void);
 // unset.c
-int	run_unset(t_tok *tok, t_env *env);
+int		run_unset(t_tok *tok, t_env *env);
 /* ------------ execute directory ------------ */
 
 /* ------------ parsing directory ------------ */
 // checker.c
-
 int		check_arg(char *str);
 
 // chunk.c
@@ -135,6 +134,8 @@ void	redirection_tok(t_cmd *cmd);
 
 // tokenizer.c
 t_tok	*tokenize(char *str);
+
+// sub_parsing.c
 void	check_dollar(t_env *env, t_tok *tok);
 
 /* ------------ signal directory ------------ */
@@ -165,6 +166,7 @@ void	double_free(char *s1, char *s2);
 
 //redirect.c
 void	fd_handler(t_cmd *cmd);
+
 //redirect_utils.c
 void	ft_perror(char *file);
 char	*row_malloc(t_tok *tok);

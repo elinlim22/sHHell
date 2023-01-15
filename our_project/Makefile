@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: huipark <huipark@student.42.fr>            +#+  +:+       +#+         #
+#    By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 17:50:45 by hyeslim           #+#    #+#              #
-#    Updated: 2023/01/15 17:56:34 by huipark          ###   ########.fr        #
+#    Updated: 2023/01/15 19:27:23 by hyeslim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME = minihell
 
 # compiler
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
-LINK_FLAG = -lreadline -L/Users/huipark/.brew/opt/readline/lib -I/Users/huipark/.brew/opt/readline/include #-L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address ##
+LINK_FLAG = -lreadline -L$(shell brew --prefix readline)/lib -I$(shell brew --prefix readline)/include #-L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include
 COMP_FLAG = -I includes/minishell.h
 
 # directories
@@ -28,7 +28,7 @@ UTILS = ${DIR}utils/
 
 BLTIN_SRCS = echo exit export export_utils pwd unset env cd
 EXECU_SRCS =
-PARSE_SRCS = checker chunk init iterator tokenizer
+PARSE_SRCS = checker chunk init iterator tokenizer sub_parsing
 SIGNL_SRCS = signal signal_utils
 UTILS_SRCS =
 
@@ -73,4 +73,4 @@ run :
 	@make re
 	@./${NAME}
 
-.PHONY : all re clean fclean
+.PHONY : all re clean fclean run

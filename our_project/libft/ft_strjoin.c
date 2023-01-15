@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 19:28:34 by hyeslim           #+#    #+#             */
-/*   Updated: 2022/12/27 20:18:20 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/15 18:15:13 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	ft_addstr(char **dst, char *src)
 	char	*tmp;
 
 	tmp = *dst;
+	if (!tmp)
+		tmp = ft_strdup("");
 	*dst = ft_strjoin(tmp, src);
 	free(tmp);
 }

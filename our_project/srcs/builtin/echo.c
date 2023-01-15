@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 22:33:16 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/15 17:46:13 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/15 19:39:15 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	say_it(t_tok *tok)
 				i++;
 			}
 		}
+		printf(" ");
 		curr = curr->next;
 	}
 	if (n_flag)

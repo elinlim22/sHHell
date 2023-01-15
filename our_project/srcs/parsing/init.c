@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:22:21 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/14 21:18:53 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/15 19:21:40 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	add_red(t_cmd *cmd)
 
 void	init_red(t_cmd	*cmd)
 {
-		explore_token(cmd);
-		redirection_tok(cmd);
+	explore_token(cmd);
+	redirection_tok(cmd);
 }
 
 void	add_tok(t_tok **tok, char *str, int type)
