@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:02:44 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/08 12:00:22 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/15 17:56:35 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strjoin(char const *s1, char const *s2);
 void	ft_addstr(char **dst, char *src);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+size_t	ft_strlcpy(char **dest, const char *src, size_t size);
 size_t	ft_strlen(const char *str);
 size_t	ft_strlen_db(char **str);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));

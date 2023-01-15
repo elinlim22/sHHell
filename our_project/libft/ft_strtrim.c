@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:30:58 by hyeslim           #+#    #+#             */
-/*   Updated: 2022/07/21 23:07:43 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/15 17:56:35 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	dest = (char *)malloc(sizeof(char) * (j - i + 1));
 	if (!dest)
 		return (NULL);
-	ft_strlcpy(dest, s1 + i, j - i + 1);
+	ft_strlcpy(&dest, s1 + i, j - i + 1);
 	return (dest);
 }

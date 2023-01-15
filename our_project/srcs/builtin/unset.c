@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:23:47 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/14 21:04:45 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/15 17:56:31 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	unset_argm_check(t_tok *tok)
 
 int	run_unset(t_tok *tok, t_env *env)
 {
-	// t_env	*temp_env;
 	t_env	*head;
 
 	head = env;
@@ -49,12 +48,11 @@ int	run_unset(t_tok *tok, t_env *env)
 		return (EXIT_FAILURE);
 	while (env->next && tok->next)
 	{
-
 		env = env->next;
-		if (!ft_strcmp(tok->next->str, env->key))
+		if (!ft_strcmp(tok->next->str, env->key)
+			&& !(*tok->next->str == '_' && *(tok->next->str + 1) == '\0'))
 		{
-			free(env->key);
-			free(env->value);
+			double_free(env->key, env->value);
 			if (!env->next)
 				env->prev->next = NULL;
 			else

@@ -52,7 +52,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (*str == '\0')
 			continue;
 		cmd = ready_to_run(str);
-		// check_dollar(&env, cmd->next->tok);
+		check_dollar(&env, cmd->next->tok);
 		if (cmd->next)
 			run_cmd(cmd, env, envp);
 		free_cmd(cmd);

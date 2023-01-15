@@ -6,11 +6,17 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:39:09 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/14 19:12:40 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/15 17:56:37 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	double_free(char *s1, char *s2)
+{
+	free(s1);
+	free(s2);
+}
 
 void	free_cmd(t_cmd *cmd)
 {

@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 22:33:15 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/14 19:12:42 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/15 17:56:36 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_env	*find_env(t_env *env, char *path, int key_or_value)
 	t_env	*curr;
 
 	curr = env->next;
+	// printf("curr.key : %s\n", curr->key); ///
+	// printf("path : %s\n", path); ///
 	while (curr)
 	{
 		if (key_or_value == KEY)

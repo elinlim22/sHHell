@@ -11,30 +11,10 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "../includes/get_next_line.h"
 
 #define READ 0
 #define WRITE 1
-
-char	*row_malloc(t_tok *tok)
-{
-	return(ft_strdup(tok->str));
-}
-
-void	ft_perror(char *file)
-{
-	printf("miniHell : %s: ", file);
-	perror("");
-}
-
-void	close_unused_fd(t_cmd *cmd, int pid)
-{
-	if (pid == 0)
-	{
-		close(cmd->fd[READ]);
-	}
-	else
-		close(cmd->fd[WRITE]);
-}
 
 char	**get_cmd(t_cmd *cmd)
 {
@@ -105,70 +85,27 @@ char	**get_path(char *envp[])
 	return (ft_split(envp[i], ':'));
 }
 
-void	reset_std_fd(t_cmd *cmd)
+void	here_doc(t_cmd *cmd)
 {
-	dup2(cmd->STDOUT_FD, STDOUT_FILENO);
-	dup2(cmd->STDIN_FD, STDIN_FILENO);
-}
+	char	*line;
 
-void	red_check(t_cmd *cmd, char **stdin)
-{
-	if (cmd->red->type == LEFT)
-			*stdin = cmd->red->str;
-	else if (cmd->red->type == RIGT)
+	if (pipe(cmd->fd) == -1)
+		perror("here_doc pipe error");
+	while (1)
 	{
-		cmd->out_fd = open(cmd->red->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (cmd->out_fd == -1)
-			ft_perror(cmd->red->str);
-	}
-}
-
-void	pipe_fd_handler(t_cmd *cmd)
-{
-	if (cmd->prev->fd[READ] != -2)
-	{
-		if (dup2(cmd->prev->fd[READ], STDIN_FILENO) == -1)
+		line = get_next_line(STDIN_FILENO);
+		if (line)
+			line[ft_strlen(line) - 1] = '\0';
+		if (!line || !ft_strcmp(line, cmd->red->str))
 		{
-			perror("miniHell : dup2 error");
-			exit (1);
+			free(line);
+			break ;
 		}
-		close(cmd->prev->fd[READ]);
+		line[ft_strlen(line)] = '\n';
+		write(cmd->fd[WRITE], line, ft_strlen(line));
+		free(line);
 	}
-	if (cmd->next != NULL)
-	{
-		if (dup2(cmd->fd[WRITE], STDOUT_FILENO) == -1)
-		{
-			perror("miniHell : dup2 error");
-			exit (1);
-		}
-		close(cmd->fd[WRITE]);
-	}
-}
-
-void	fd_handler(t_cmd *cmd)
-{
-	char	*stdin;
-
-	pipe_fd_handler(cmd);
-	stdin = NULL;
-	while (cmd->red->next)
-	{
-		cmd->red = cmd->red->next;
-		red_check(cmd, &stdin);
-	}
-	if (stdin)
-	{
-		cmd->in_fd = open(stdin, O_RDONLY);
-		if (cmd->in_fd == -1)
-			ft_perror(stdin);
-		dup2(cmd->in_fd, STDIN_FILENO);
-		close(cmd->in_fd);
-	}
-	if (cmd->out_fd != -2)
-	{
-		dup2(cmd->out_fd, STDOUT_FILENO);
-		close(cmd->out_fd);
-	}
+	close(cmd->fd[WRITE]);
 }
 
 void	execute(t_cmd *cmd, char *envp[])
@@ -239,19 +176,15 @@ void	run_cmd(t_cmd *cmd, t_env env, char *envp[])
 
 	head = cmd;
 	pid = 1;
-	if (!cmd->red && !cmd->tok && cmd->next)	//cmd가 헤드일 경우
-		cmd = cmd->next;
-	if (!cmd->next && is_builtin(cmd))
-	{
-		g_exit_status = do_cmd(cmd, env, envp, pid);
-	}
+	if (!cmd->next->next && is_builtin(cmd->next))
+		g_exit_status = do_cmd(cmd->next, env, envp, pid);
 	else
 	{
+		cmd = cmd->next;
 		while (cmd)
 		{
 			if (pipe(cmd->fd) == -1)
 				perror("miniHell : pipe error");
-			sig_status();
 			pid = fork();
 			if (pid == -1)
 				perror("miniHell : fork_error");
@@ -270,7 +203,6 @@ void	run_cmd(t_cmd *cmd, t_env env, char *envp[])
 			;
 		g_exit_status = WEXITSTATUS(g_exit_status);
 	}
-
 	cmd = head;
 	reset_std_fd(cmd);
 }

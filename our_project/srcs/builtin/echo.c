@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 22:33:16 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/14 22:04:08 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/15 17:46:13 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	say_it(t_tok *tok)
 
 	curr = tok->next;
 	n_flag = 1;
-	if (!ft_strncmp(curr->str, "-n", 2) && all_n(curr->str))
+	if (curr->str && !ft_strncmp(curr->str, "-n", 2) && all_n(curr->str))
 	{
 		curr = curr->next;
 		n_flag = 0;
@@ -40,13 +40,8 @@ int	say_it(t_tok *tok)
 	while (curr)
 	{
 		i = 0;
-		while (curr->str[i] != '\0')
+		while (curr->str && curr->str[i] != '\0')
 		{
-			// if (curr->str[i] == '$' && curr->str[i + 1] == '?')
-			// {
-			// 	printf("%d", g_exit_status);
-			// 	i += 2;
-			// }
 			if (curr->str[i] != '\0')
 			{
 				printf("%c", curr->str[i]);

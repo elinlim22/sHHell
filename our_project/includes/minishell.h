@@ -135,7 +135,7 @@ void	redirection_tok(t_cmd *cmd);
 
 // tokenizer.c
 t_tok	*tokenize(char *str);
-void	check_dollar(t_env *env, t_tok *tok)
+void	check_dollar(t_env *env, t_tok *tok);
 
 /* ------------ signal directory ------------ */
 // signal.c
@@ -161,9 +161,19 @@ void	init_env(t_env *env, char *envp[]);
 // free.c
 void	free_cmd(t_cmd *cmd);
 void	free_export(t_env *copy_env);
+void	double_free(char *s1, char *s2);
+
+//redirect.c
+void	fd_handler(t_cmd *cmd);
+//redirect_utils.c
+void	ft_perror(char *file);
+char	*row_malloc(t_tok *tok);
+void	close_unused_fd(t_cmd *cmd, int pid);
+void	reset_std_fd(t_cmd *cmd);
 
 // run_cmd.c
 void	run_cmd(t_cmd *cmd, t_env env, char *envp[]);
+void	here_doc(t_cmd *cmd);
 
 // main.c
 t_cmd	*ready_to_run(char *str);

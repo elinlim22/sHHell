@@ -6,7 +6,7 @@
 #    By: huipark <huipark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 17:50:45 by hyeslim           #+#    #+#              #
-#    Updated: 2023/01/14 22:16:47 by huipark          ###   ########.fr        #
+#    Updated: 2023/01/15 17:56:34 by huipark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,9 @@ SRCS = ${addsuffix .c, $(addprefix ${BLTIN}, ${BLTIN_SRCS})} \
 		${DIR}free.c \
 		${DIR}init_env_list.c \
 		${DIR}main.c \
-		$(DIR)run_cmd.c
+		$(DIR)run_cmd.c \
+		$(DIR)redirect_utils.c \
+		$(DIR)redirect.c
 
 all : ${NAME}
 

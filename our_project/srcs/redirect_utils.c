@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   redirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 15:48:39 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/15 17:56:36 by huipark          ###   ########.fr       */
+/*   Created: 2023/01/15 17:42:10 by huipark           #+#    #+#             */
+/*   Updated: 2023/01/15 17:56:34 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include "../includes/minishell.h"
 
-size_t	ft_strlcpy(char **dest, const char *src, size_t size)
-
+void	close_unused_fd(t_cmd *cmd, int pid)
 {
-	size_t	i;
-	size_t	len;
+	if (pid == 0)
+		close(cmd->fd[0]);
+	else
+		close(cmd->fd[1]);
+}
 
-	i = 0;
-	len = ft_strlen(src);
-	if (!size)
-		return (len);
-	if (!*dest)
-		*dest = ft_wrap_malloc(size + 1);
-	while (i + 1 < size && src[i] != '\0')
-	{
-		(*dest)[i] = src[i];
-		i++;
-	}
-	(*dest)[i] = '\0';
-	printf("(*dest) : %s\n", (*dest));
-	return (len);
+char	*row_malloc(t_tok *tok)
+{
+	return(ft_strdup(tok->str));
+}
+
+void	ft_perror(char *file)
+{
+	printf("miniHell : %s: ", file);
+	perror("");
+}
+
+void	reset_std_fd(t_cmd *cmd)
+{
+	dup2(cmd->STDOUT_FD, STDOUT_FILENO);
+	dup2(cmd->STDIN_FD, STDIN_FILENO);
 }
