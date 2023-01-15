@@ -42,7 +42,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	argc_check(argc, argv);
 	init_env(&env, envp);
-	sig_status();
+	// sig_status();
 	while (1)
 	{
 		// int	i = 1;
@@ -52,7 +52,9 @@ int	main(int argc, char *argv[], char *envp[])
 		if (*str == '\0')
 			continue;
 		cmd = ready_to_run(str);
+		printf("AAAAAAAA = %p\n", cmd->next);
 		check_dollar(&env, cmd->next->tok);
+		printf("BBBBBBBB = %p\n", cmd->next);
 		if (cmd->next)
 			run_cmd(cmd, env, envp);
 		free_cmd(cmd);
