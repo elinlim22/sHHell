@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:02:23 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/14 18:54:59 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/16 16:17:38 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	set_oldpwd(t_env *env, char *path)
 	env->next = new;
 }
 
-int	cd(t_tok *tok, t_env *env) // cd 다음 토큰이 와야함
+int	cd(t_tok *tok, t_env *env)
 {
 	t_env	*temp;
 	t_tok	*path_tok;

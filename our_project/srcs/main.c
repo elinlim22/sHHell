@@ -6,7 +6,7 @@
 /*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/14 240:416:09 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/16 17:33:34 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,21 @@ int	main(int argc, char *argv[], char *envp[])
 
 	argc_check(argc, argv);
 	init_env(&env, envp);
-	// sig_status();
 	while (1)
 	{
-		// int	i = 1;
+		sig_status();
 		str = readline("\033[0;35mminihell $> \033[0m");
 		if (!str)
-			break;
+			break ;
 		if (*str == '\0')
-			continue;
+			continue ;
 		cmd = ready_to_run(str);
-		printf("AAAAAAAA = %p\n", cmd->next);
 		check_dollar(&env, cmd->next->tok);
-		printf("BBBBBBBB = %p\n", cmd->next);
 		if (cmd->next)
+		{
+			handle_signal_while_cmd();
 			run_cmd(cmd, env, envp);
+		}
 		free_cmd(cmd);
 		add_history(str);
 		free(str);

@@ -25,24 +25,19 @@ static int	token_cmd(t_tok **tok, char *str, int type)
 			len++;
 		add_tok(tok, ft_substr(str, 0, len), type);
 	}
-	else if (type == SINQ || type == DOUQ)
+	else if (type == SINQ && ++len)
 	{
-		if (type == SINQ)
-		{
+		while (str[len] != '\'')
 			len++;
-			while (str[len] != '\'')
-				len++;
+		len++;
+		add_tok(tok, ft_strtrim(str, "\'"), type);
+	}
+	else if (type == DOUQ && ++len)
+	{
+		while (str[len] != '"')
 			len++;
-			add_tok(tok, ft_strtrim(str, "\'"), type);
-		}
-		else if (type == DOUQ)
-		{
-			len++;
-			while (str[len] != '"')
-				len++;
-			len++;
-			add_tok(tok, ft_strtrim(str, "\""), type);
-		}
+		len++;
+		add_tok(tok, ft_strtrim(str, "\""), type);
 	}
 	return (len);
 }
