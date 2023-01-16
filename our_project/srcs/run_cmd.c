@@ -88,9 +88,9 @@ char	**get_path(char *envp[])
 void	here_doc(t_cmd *cmd)
 {
 	char	*line;
+	int		fd;
 
-	if (pipe(cmd->fd) == -1)
-		perror("here_doc pipe error");
+	fd = open(".temp_here_doc", O_RDWR | O_CREAT | O_TRUNC , 0644);
 	while (1)
 	{
 		line = get_next_line(STDIN_FILENO);
@@ -102,10 +102,39 @@ void	here_doc(t_cmd *cmd)
 			break ;
 		}
 		line[ft_strlen(line)] = '\n';
-		write(cmd->fd[WRITE], line, ft_strlen(line));
+		write(fd, line, ft_strlen(line));
 		free(line);
 	}
-	close(cmd->fd[WRITE]);
+	close (fd);
+	exit(0);
+}
+void	here_doc_check(t_cmd *cmd)
+{
+	t_red	*red_head;
+	int		pid;
+
+	red_head = cmd->red;
+	while(cmd->red->next)
+	{
+		cmd->red = cmd->red->next;
+		if (cmd->red->type == DLFT)
+		{
+			pid = fork();
+			if (pid == -1)
+				perror("miniHell : fork_error");
+			else if (pid == 0)
+				here_doc(cmd);
+			else
+			{
+				free(cmd->red->str);
+				cmd->red->str = ft_strdup(".temp_here_doc");
+				cmd->red->type = LEFT;
+				while (wait (0) != -1)
+					;
+			}
+		}
+	}
+	cmd->red = red_head;
 }
 
 void	execute(t_cmd *cmd, char *envp[])
@@ -183,6 +212,7 @@ void	run_cmd(t_cmd *cmd, t_env env, char *envp[])
 		cmd = cmd->next;
 		while (cmd)
 		{
+			here_doc_check(cmd);
 			if (pipe(cmd->fd) == -1)
 				perror("miniHell : pipe error");
 			pid = fork();

@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:38:43 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/15 17:46:13 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/16 20:53:57 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	red_check(t_cmd *cmd, t_red **curr_red)
 {
-	if (cmd->red->type == LEFT || cmd->red->type == DLFT)
+	if (cmd->red->type == LEFT)
 		*curr_red = cmd->red;
 	else if (cmd->red->type == RIGT)
 	{
@@ -74,7 +74,7 @@ void	fd_handler(t_cmd *cmd)
 		{
 			here_doc(cmd);
 			dup2(cmd->fd[READ], STDIN_FILENO);
-			close(cmd->fd[READ]);
+			// close(cmd->fd[READ]);
 		}
 	}
 	if (cmd->out_fd != -2)

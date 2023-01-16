@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:42:10 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/15 17:56:34 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/16 21:37:13 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	close_unused_fd(t_cmd *cmd, int pid)
 	if (pid == 0)
 		close(cmd->fd[0]);
 	else
+	{
 		close(cmd->fd[1]);
+	}
 }
 
 char	*row_malloc(t_tok *tok)
