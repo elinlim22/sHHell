@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 14:19:26 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/17 16:34:03 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/18 00:20:24 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ t_cmd	*chunk(t_tok **tok)
 	curr = cmd;
 	while ((*tok)->next)
 		cmd_add(&curr, tok);
+	free(*tok);
 	return (cmd);
 }

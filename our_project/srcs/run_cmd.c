@@ -102,7 +102,7 @@ void	run_cmd(t_cmd *cmd, t_env env, char *envp[])
 	int			pid;
 
 	head = cmd;
-	pid = 0;
+	pid = 1;
 	if (!cmd->next->next && is_builtin(cmd->next))
 		g_exit_status = do_cmd(cmd->next, env, envp, pid);
 	else

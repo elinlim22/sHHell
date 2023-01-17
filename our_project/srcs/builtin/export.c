@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 23:04:02 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/17 23:02:13 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/18 00:58:33 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,13 @@ static int	existent_check(t_tok *tok, t_env *env)
 	{
 		env = env->next;
 		if (!ft_strcmp(key, env->key) && *key != '_')
+		{
+			free(key);
 			return (cover_up_env(env, tok->str));
+		}
 	}
 	env = head;
+	free(key);
 	return (export_argm_check(tok, *env));
 }
 
@@ -101,9 +105,9 @@ int	run_export(t_tok *tok, t_env env)
 		while (tok->next)
 		{
 			tok = tok->next;
-			return (existent_check(tok, &env));
+			g_exit_status = existent_check(tok, &env);
 		}
-		return (EXIT_SUCCESS);
+		return (g_exit_status);
 	}
 	else
 		return (print_export(run_export2(&env)));

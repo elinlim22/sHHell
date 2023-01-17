@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/17 23:05:36 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/18 00:58:23 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,18 @@ int	main(int argc, char *argv[], char *envp[])
 		str = readline("\033[0;35mminihell $> \033[0m");
 		if (!str)
 			break ;
-		if (*str == '\0')
-			continue ;
-		cmd = ready_to_run(str);
-		if (cmd->next)
+		if (*str != '\0')
 		{
-			check_dollar(&env, cmd->next->tok);
-			sig_init();
-			run_cmd(cmd, env, envp);
+			cmd = ready_to_run(str);
+			if (cmd->next)
+			{
+				check_dollar(&env, cmd->next->tok);
+				sig_init();
+				run_cmd(cmd, env, envp);
+			}
+			free_cmd(cmd);
+			add_history(str);
 		}
-		free_cmd(cmd);
-		add_history(str);
 		free(str);
 	}
 }

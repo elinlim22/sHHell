@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sub_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 19:25:51 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/17 23:17:01 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/18 00:53:33 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@ static void	replace_env_var(t_env *env, char **res, char *path)
 {
 	char	*str;
 	char	*temp;
+	char	*num;
 	t_env	*env_temp;
 
 	str = path;
 	temp = NULL;
 	if (*str == '?')
 	{
-		ft_addstr(res, ft_strdup(ft_itoa(g_exit_status)));
+		num = ft_itoa(g_exit_status);
+		ft_addstr(res, num);
+		free (num);
 		temp = ft_strdup("?");
 		str++;
 	}
@@ -35,7 +38,7 @@ static void	replace_env_var(t_env *env, char **res, char *path)
 	}
 	env_temp = find_env(env, temp, KEY);
 	if (env_temp)
-		ft_addstr(res, ft_strdup(env_temp->value));
+		ft_addstr(res, env_temp->value);
 	free(temp);
 	ft_addstr(res, str);
 }

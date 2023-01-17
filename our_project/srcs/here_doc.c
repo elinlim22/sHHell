@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:31:42 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/17 21:32:40 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/18 00:56:10 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ void	here_doc(t_cmd *cmd, char *file)
 static void	parent_or_child(int pid, t_cmd *cmd, int cnt)
 {
 	char	*file;
+	char	*temp;
 
-	file = ft_itoa(cnt);
-	file = ft_strjoin(".temp_here_doc", file);
+	temp = ft_itoa(cnt);
+	file = ft_strjoin(".temp_here_doc", temp);
+	free (temp);
 	if (pid == -1)
 		perror("miniHell : fork_error");
 	else if (pid == 0)
