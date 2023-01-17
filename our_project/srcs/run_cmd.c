@@ -62,6 +62,7 @@ static void	parent_or_child(int pid, t_cmd *cmd, t_env env, char *envp[])
 		perror("miniHell : fork_error");
 	else if (pid == 0)
 	{
+		handle_signal_while_cmd(); //
 		g_exit_status = do_cmd(cmd, env, envp, pid);
 		exit(g_exit_status);
 	}

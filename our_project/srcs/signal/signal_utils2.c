@@ -3,20 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   signal_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 20:51:57 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/17 20:53:13 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/17 22:31:37 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+void	fork_signal(int signum);
+void	fork_signal2(int signum);
 void	signal_redisplay(void);
 void	heredoc_signal(void);
 void	heredoc_signal_sigint(int signal);
 
 /* util */
+
+void	fork_signal2(int signum)
+{
+	if (signum != SIGQUIT)
+		return ;
+	printf("Quit: 3\n");
+	g_exit_status = 131;
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	fork_signal(int signum)
+{
+	if (signum != SIGINT)
+		return ;
+	g_exit_status = 130;
+	printf("^C\n");
+	signal(SIGINT, SIG_IGN);
+}
+
 void	signal_redisplay(void)
 {
 	rl_on_new_line();
@@ -35,5 +56,6 @@ void	heredoc_signal_sigint(int signal)
 {
 	(void)signal;
 	g_exit_status = 1;
+	printf("\n");
 	exit(g_exit_status);
 }

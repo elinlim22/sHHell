@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/17 18:57:36 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 22:30:21 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int	main(int argc, char *argv[], char *envp[])
 		if (*str == '\0')
 			continue ;
 		cmd = ready_to_run(str);
-		check_dollar(&env, cmd->next->tok);
 		if (cmd->next)
 		{
-			handle_signal_while_cmd();
+			check_dollar(&env, cmd->next->tok);
+			sig_init();
 			run_cmd(cmd, env, envp);
 		}
 		free_cmd(cmd);
@@ -63,7 +63,8 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 }
 
-// while (cmd->next)
+
+		// while (cmd->next)
 		// {
 		// 	cmd = cmd->next;
 		// 	printf("------------------------------------------\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:31:42 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/17 20:46:41 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/17 21:32:40 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	here_doc(t_cmd *cmd, char *file)
 	char	*line;
 	int		fd;
 
-	printf("AAAA\n");
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	while (1)
 	{
@@ -64,6 +63,21 @@ static void	parent_or_child(int pid, t_cmd *cmd, int cnt)
 	}
 }
 
+void	search_red(int pid, t_cmd *cmd, int cnt)
+{
+	while (cmd->red->next)
+	{
+		cmd->red = cmd->red->next;
+		if (cmd->red->type == DLFT)
+		{
+			signal(SIGINT, SIG_IGN);
+			signal(SIGQUIT, SIG_IGN);
+			pid = fork();
+			parent_or_child(pid, cmd, cnt);
+		}
+	}
+}
+
 void	here_doc_check(t_cmd *cmd, int flag)
 {
 	static int	cnt;
@@ -71,20 +85,11 @@ void	here_doc_check(t_cmd *cmd, int flag)
 	int			pid;
 
 	red_head = cmd->red;
+	pid = 0;
 	if (flag == HEREDOC)
 	{
-		while (cmd->red->next)
-		{
-			cmd->red = cmd->red->next;
-			if (cmd->red->type == DLFT)
-			{
-				signal(SIGINT, SIG_IGN);
-				signal(SIGQUIT, SIG_IGN);
-				pid = fork();
-				parent_or_child(pid, cmd, cnt);
-				cnt++;
-			}
-		}
+		search_red(pid, cmd, cnt);
+		cnt++;
 	}
 	else if (flag == UNLINK)
 	{

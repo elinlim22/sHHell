@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:00:03 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/17 20:53:08 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/17 22:31:12 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+void	sig_init(void);
 void	sig_status(void);
 void	handle_signal_on_newline(void);
 void	handle_signal_while_cmd(void);
@@ -26,10 +27,16 @@ void	sig_status(void)
 	term.c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	pid = waitpid(-1, &status, WNOHANG);
-	if (pid == -1)
-		handle_signal_on_newline();
-	else if (pid == 0)
+	if (pid == 0)
 		handle_signal_while_cmd();
+	else
+		handle_signal_on_newline();
+}
+
+void	sig_init(void)
+{
+	signal(SIGINT, fork_signal);
+	signal(SIGQUIT, fork_signal2);
 }
 
 /* 실행중일때 vs 빈 줄일때 */
