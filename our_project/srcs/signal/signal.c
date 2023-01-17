@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:00:03 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/16 17:31:37 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/17 18:38:28 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	sig_status(void);
 void	handle_signal_on_newline(void);
 void	handle_signal_while_cmd(void);
 void	signal_redisplay(void);
+void	heredoc_signal(void);
+void	heredoc_signal_sigint(int signal);
 
 void	sig_status(void)
 {
@@ -55,3 +57,45 @@ void	signal_redisplay(void)
 	rl_replace_line("", 1);
 	rl_redisplay();
 }
+
+void	heredoc_signal(void)
+{
+	signal(SIGINT, heredoc_signal_sigint);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTERM, signal_sigterm);
+}
+
+void	heredoc_signal_sigint(int signal)
+{
+	(void)signal;
+	g_exit_status = 1;
+	exit(g_exit_status);
+}
+
+// void	signal_sigint(int signal)
+// {
+// 	(void)signal;
+// 	g_exit_status = 1;
+// 	printf("\n");
+// 	signal_redisplay();
+// }
+
+// void	heredoc_signal_sigquit(int signal)
+// {
+// 	(void)signal;
+// 	g_exit_status = 131;
+// 	printf("\b\b^\\Quit: 3\n");
+// }
+
+// void	heredoc_signal_sigterm(int signal)
+// {
+// 	(void)signal;
+// 	g_exit_status = 0;
+// }
+
+// void	signal_sigterm(int signal)
+// {
+// 	(void)signal;
+// 	g_exit_status = 0;
+// 	exit(g_exit_status);
+// }

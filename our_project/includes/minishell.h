@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/15 19:27:06 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/17 19:15:52 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ typedef struct s_command
 {
 	t_tok				*tok;
 	t_red				*red;
-	int					STDIN_FD;
-	int					STDOUT_FD;
+	int					stdin_fd;
+	int					stdout_fd;
 	int					in_fd;
 	int					out_fd;
 	int					fd[2];
@@ -144,6 +144,8 @@ void	sig_status(void);
 void	handle_signal_on_newline(void);
 void	handle_signal_while_cmd(void);
 void	signal_redisplay(void);
+void	heredoc_signal(void);
+void	heredoc_signal_sigint(int signal);
 
 // signal_utils.c
 void	child_signal_sigint(int signal);
@@ -168,14 +170,22 @@ void	double_free(char *s1, char *s2);
 void	fd_handler(t_cmd *cmd);
 
 //redirect_utils.c
-void	ft_perror(char *file);
+void	ft_strerror(char *file, int num);
 char	*row_malloc(t_tok *tok);
 void	close_unused_fd(t_cmd *cmd, int pid);
-void	reset_std_fd(t_cmd *cmd);
+void	reset_std_fd(t_cmd *cmd, t_cmd *head);
+void	last_fd_close(t_cmd *cmd);
 
 // run_cmd.c
 void	run_cmd(t_cmd *cmd, t_env env, char *envp[]);
-void	here_doc(t_cmd *cmd);
+
+// here_doc.c
+void	here_doc_check(t_cmd *cmd, int num);
+
+// get_function.c
+char	**get_cmd(t_cmd *cmd);
+char	*get_vaild_cmd(char **path, char *cmd);
+char	**get_path(char *envp[]);
 
 // main.c
 t_cmd	*ready_to_run(char *str);

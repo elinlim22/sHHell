@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 16:07:58 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/14 19:12:41 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 16:34:03 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	exit_argm_error(char *msg, char *argm, int status, t_cmd *cmd)
 {
 	while (cmd->prev)
 		cmd = cmd->prev;
-	dup2(cmd->STDOUT_FD, STDOUT_FILENO);
+	dup2(cmd->stdout_fd, STDOUT_FILENO);
 	printf("%s%s:  numeric argument required\n", msg, argm);
 	exit(status);
 }

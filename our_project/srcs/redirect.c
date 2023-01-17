@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:38:43 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/16 20:53:57 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 18:57:02 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,15 @@ void	red_check(t_cmd *cmd, t_red **curr_red)
 	{
 		cmd->out_fd = open(cmd->red->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (cmd->out_fd == -1)
-			ft_perror(cmd->red->str);
+		{
+			ft_strerror(cmd->red->str, errno);
+		}
+	}
+	else if (cmd->red->type == DRGT)
+	{
+		cmd->out_fd = open(cmd->red->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (cmd->out_fd == -1)
+			ft_strerror(cmd->red->str, errno);
 	}
 }
 
@@ -66,15 +74,9 @@ void	fd_handler(t_cmd *cmd)
 		{
 			cmd->in_fd = open(curr_red->str, O_RDONLY);
 			if (cmd->in_fd == -1)
-				ft_perror(curr_red->str);
+				ft_strerror(curr_red->str, errno);
 			dup2(cmd->in_fd, STDIN_FILENO);
 			close(cmd->in_fd);
-		}
-		else if (curr_red->type == DLFT)
-		{
-			here_doc(cmd);
-			dup2(cmd->fd[READ], STDIN_FILENO);
-			// close(cmd->fd[READ]);
 		}
 	}
 	if (cmd->out_fd != -2)

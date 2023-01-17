@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+         #
+#    By: huipark <huipark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 17:50:45 by hyeslim           #+#    #+#              #
-#    Updated: 2023/01/15 19:27:23 by hyeslim          ###   ########.fr        #
+#    Updated: 2023/01/17 18:55:56 by huipark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minihell
 
 # compiler
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address ##
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 LINK_FLAG = -lreadline -L$(shell brew --prefix readline)/lib -I$(shell brew --prefix readline)/include #-L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include
 COMP_FLAG = -I includes/minishell.h
 
@@ -43,7 +43,10 @@ SRCS = ${addsuffix .c, $(addprefix ${BLTIN}, ${BLTIN_SRCS})} \
 		${DIR}main.c \
 		$(DIR)run_cmd.c \
 		$(DIR)redirect_utils.c \
-		$(DIR)redirect.c
+		$(DIR)redirect.c \
+		$(DIR)get_function.c \
+		$(DIR)here_doc.c
+
 
 all : ${NAME}
 

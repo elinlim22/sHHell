@@ -6,7 +6,7 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 14:19:26 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/14 22:27:00 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 16:34:03 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	sep_chunk(t_cmd **cmd, t_tok **tok)
 	init_tok(&((*cmd)->tok));
 	(*cmd)->red = NULL;
 	(*cmd)->next = NULL;
-	(*cmd)->STDIN_FD = -2;
-	(*cmd)->STDOUT_FD = -2;
+	(*cmd)->stdin_fd = -2;
+	(*cmd)->stdout_fd = -2;
 	(*cmd)->in_fd = -2;
 	(*cmd)->out_fd = -2;
 	curr = (*tok)->next;
@@ -63,8 +63,8 @@ t_cmd	*chunk(t_tok **tok)
 	cmd->red = NULL;
 	cmd->prev = NULL;
 	cmd->next = NULL;
-	cmd->STDIN_FD = dup(STDIN_FILENO);
-	cmd->STDOUT_FD = dup(STDOUT_FILENO);
+	cmd->stdin_fd = dup(STDIN_FILENO);
+	cmd->stdout_fd = dup(STDOUT_FILENO);
 	cmd->fd[0] = -2;
 	cmd->fd[1] = -2;
 	cmd->in_fd = -2;

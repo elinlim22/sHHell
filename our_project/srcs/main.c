@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/16 17:33:34 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/17 18:57:36 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int argc, char *argv[], char *envp[])
 	init_env(&env, envp);
 	while (1)
 	{
-		sig_status();
+		handle_signal_on_newline();
 		str = readline("\033[0;35mminihell $> \033[0m");
 		if (!str)
 			break ;
@@ -63,8 +63,7 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 }
 
-
-		// while (cmd->next)
+// while (cmd->next)
 		// {
 		// 	cmd = cmd->next;
 		// 	printf("------------------------------------------\n");
