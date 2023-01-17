@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:06:25 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/10 20:40:59 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 20:47:33 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*get_env_value(char *line)
 	i = 0;
 	while (line[i] && line[i] != '=')
 		i++;
-	if (line[i]== '\0')
+	if (line[i] == '\0')
 		return (NULL);
 	dest = ft_strdup(line + (i + 1));
 	if (!dest)

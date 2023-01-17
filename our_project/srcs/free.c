@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:39:09 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/15 17:56:37 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 20:47:21 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_cmd(t_cmd *cmd)
 	t_tok	*next_tok;
 	t_red	*next_red;
 
-	while(cmd != NULL)
+	while (cmd != NULL)
 	{
 		next_cmd = cmd->next;
 		while (cmd->tok)

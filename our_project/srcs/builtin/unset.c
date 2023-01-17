@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:23:47 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/15 17:56:31 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 20:50:09 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	unset_argm_check(t_tok *tok)
 		{
 			if (!ft_isalnum(tok->str[i]) && tok->str[i] != '_')
 			{
-				printf("miniHHell: unset: `%s': not a valid identifier\n", tok->str);
+				printf("miniHHell: unset: `%s': not a valid identifier\n",
+					tok->str);
 				return (EXIT_FAILURE);
 			}
 			i++;

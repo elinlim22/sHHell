@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:31:42 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/17 20:43:02 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 20:46:41 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/get_next_line.h"
 
-# define UNLINK 0
-# define HEREDOC 1
+#define UNLINK 0
+#define HEREDOC 1
 
 void	here_doc(t_cmd *cmd, char *file)
 {
@@ -66,9 +66,9 @@ static void	parent_or_child(int pid, t_cmd *cmd, int cnt)
 
 void	here_doc_check(t_cmd *cmd, int flag)
 {
-	static int cnt;
-	t_red	*red_head;
-	int		pid;
+	static int	cnt;
+	t_red		*red_head;
+	int			pid;
 
 	red_head = cmd->red;
 	if (flag == HEREDOC)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:52:35 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/14 14:33:16 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 20:49:36 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	env_newnode(t_env env, t_env *temp)
 {
-	t_env *newnode;
+	t_env	*newnode;
 
 	while (temp->next)
 		temp = temp->next;
@@ -26,7 +26,7 @@ void	env_newnode(t_env env, t_env *temp)
 	temp->next = newnode;
 }
 
-void	value_swap(t_env *copy_env,t_env *temp_env)
+void	value_swap(t_env *copy_env, t_env *temp_env)
 {
 	char	*temp_key;
 	char	*temp_value;

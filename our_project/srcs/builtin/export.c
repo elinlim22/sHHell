@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 23:04:02 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/14 19:12:43 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 20:49:21 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	print_export(t_env *copy_env)
 	{
 		copy_env = copy_env->next;
 		if (!ft_strcmp(copy_env->key, "_"))
-			continue;
+			continue ;
 		printf("declare -x ");
 		printf("%s", copy_env->key);
 		if (copy_env->value)
@@ -72,7 +72,7 @@ int	cover_up_env(t_env *env, char *src)
 
 static int	existent_check(t_tok *tok, t_env *env)
 {
-	int	i;
+	int		i;
 	char	*key;
 	t_env	*head;
 
@@ -88,7 +88,7 @@ static int	existent_check(t_tok *tok, t_env *env)
 	{
 		env = env->next;
 		if (!ft_strcmp(key, env->key) && *key != '_')
-			return(cover_up_env(env, tok->str));
+			return (cover_up_env(env, tok->str));
 	}
 	env = head;
 	return (export_argm_check(tok, *env));

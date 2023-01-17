@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: huipark <huipark@student.42.fr>            +#+  +:+       +#+         #
+#    By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 17:50:45 by hyeslim           #+#    #+#              #
-#    Updated: 2023/01/17 18:55:56 by huipark          ###   ########.fr        #
+#    Updated: 2023/01/17 20:54:56 by hyeslim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minihell
+NAME = minishell
 
 # compiler
 CC = cc
@@ -29,7 +29,7 @@ UTILS = ${DIR}utils/
 BLTIN_SRCS = echo exit export export_utils pwd unset env cd
 EXECU_SRCS =
 PARSE_SRCS = checker chunk init iterator tokenizer sub_parsing
-SIGNL_SRCS = signal signal_utils
+SIGNL_SRCS = signal signal_utils signal_utils2
 UTILS_SRCS =
 
 # srcs

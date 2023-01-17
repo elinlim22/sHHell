@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/17 19:15:52 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 20:53:44 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,9 +143,6 @@ void	check_dollar(t_env *env, t_tok *tok);
 void	sig_status(void);
 void	handle_signal_on_newline(void);
 void	handle_signal_while_cmd(void);
-void	signal_redisplay(void);
-void	heredoc_signal(void);
-void	heredoc_signal_sigint(int signal);
 
 // signal_utils.c
 void	child_signal_sigint(int signal);
@@ -153,6 +150,11 @@ void	signal_sigint(int signal);
 void	child_signal_sigquit(int signal);
 void	child_signal_sigterm(int signal);
 void	signal_sigterm(int signal);
+
+// signal_utils2.c
+void	signal_redisplay(void);
+void	heredoc_signal(void);
+void	heredoc_signal_sigint(int signal);
 
 /* ------------ utils directory ------------ */
 
