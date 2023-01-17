@@ -6,7 +6,7 @@
 /*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:52:35 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/17 20:49:36 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/17 23:02:07 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,24 @@ int	add_env(t_env *env, char *str)
 	newnode->prev = env;
 	env->next = newnode;
 	return (EXIT_SUCCESS);
+}
+
+t_env	*run_export2(t_env *env)
+{
+	t_env	*temp_env;
+	t_env	*copy_env;
+
+	copy_env = env_copy(*env);
+	while (copy_env->next->next)
+	{
+		copy_env = copy_env->next;
+		temp_env = copy_env;
+		while (temp_env->next)
+		{
+			temp_env = temp_env->next;
+			if (ft_strcmp(copy_env->key, temp_env->key) > 0)
+				value_swap(copy_env, temp_env);
+		}
+	}
+	return (copy_env);
 }

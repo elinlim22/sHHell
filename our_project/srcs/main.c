@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/17 22:30:21 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 23:05:36 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int argc, char *argv[], char *envp[])
 	init_env(&env, envp);
 	while (1)
 	{
-		handle_signal_on_newline();
+		sig_status();
 		str = readline("\033[0;35mminihell $> \033[0m");
 		if (!str)
 			break ;
@@ -63,22 +63,21 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 }
 
-
-		// while (cmd->next)
-		// {
-		// 	cmd = cmd->next;
-		// 	printf("------------------------------------------\n");
-		// 	printf("cmd node%d\n", i++);
-		// 	while (cmd->tok->next)
-		// 	{
-		// 		cmd->tok = cmd->tok->next;
-		// 		printf("TOKEN = [%s : %d] ", cmd->tok->str, cmd->tok->type);
-		// 	}
-		// 	printf("\n");
-		// 	while (cmd->red->next)
-		// 	{
-		// 		cmd->red = cmd->red->next;
-		// 		printf("RED = [%s : %d] ", cmd->red->str, cmd->red->type);
-		// 	}
-		// 	printf("\n-----------------------------------------\n\n\n");
-		// }
+// while (cmd->next)
+// {
+// 	cmd = cmd->next;
+// 	printf("------------------------------------------\n");
+// 	printf("cmd node%d\n", i++);
+// 	while (cmd->tok->next)
+// 	{
+// 		cmd->tok = cmd->tok->next;
+// 		printf("TOKEN = [%s : %d] ", cmd->tok->str, cmd->tok->type);
+// 	}
+// 	printf("\n");
+// 	while (cmd->red->next)
+// 	{
+// 		cmd->red = cmd->red->next;
+// 		printf("RED = [%s : %d] ", cmd->red->str, cmd->red->type);
+// 	}
+// 	printf("\n-----------------------------------------\n\n\n");
+// }

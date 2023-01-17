@@ -6,7 +6,7 @@
 /*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 19:25:51 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/16 16:00:39 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/17 23:17:01 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	check_dollar(t_env *env, t_tok *tok)
 	curr = tok->next;
 	while (curr)
 	{
-		if (ft_strchr(curr->str, '$'))
+		if (ft_strchr(curr->str, '$')
+			&& (curr->type == DOUQ || curr->type == STR))
 		{
 			temp = sub_parsing(env, curr);
 			free(curr->str);

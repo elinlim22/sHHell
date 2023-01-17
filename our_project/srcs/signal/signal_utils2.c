@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 20:51:57 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/17 22:31:37 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 22:48:44 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	fork_signal(int signum)
 void	signal_redisplay(void)
 {
 	rl_on_new_line();
-	rl_replace_line("", 1);
 	rl_redisplay();
+	rl_replace_line("", 1);
 }
 
 void	heredoc_signal(void)

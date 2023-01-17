@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/17 22:31:00 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/17 23:18:03 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,14 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
-# include <dirent.h> //opendir, readdir, closedir
 # include <fcntl.h>
 # include <stdio.h>
-# include <readline/readline.h> //readline, rl_...
+# include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
 # include <term.h>
-# include <sys/ioctl.h> //ioctl
-# include <sys/stat.h> //stat, lstat, fstat
 # include <sys/wait.h>
-# include <curses.h> //tgetent
-# include <string.h> //strerror
+# include <curses.h>
 # include <errno.h>
 
 # define KEY 0
@@ -103,16 +99,20 @@ void	exit_argm_error(char *msg, char *argm, int status, t_cmd *cmd);
 
 // export.c
 int		run_export(t_tok *tok, t_env env);
+
 // export_utils.c
 void	env_newnode(t_env env, t_env *temp);
 void	value_swap(t_env *copy_env, t_env *temp_env);
 int		add_env(t_env *env, char *str);
 t_env	*env_copy(t_env env);
+t_env	*run_export2(t_env *env);
 
 // pwd.c
 int		run_pwd(void);
+
 // unset.c
 int		run_unset(t_tok *tok, t_env *env);
+
 /* ------------ execute directory ------------ */
 
 /* ------------ parsing directory ------------ */

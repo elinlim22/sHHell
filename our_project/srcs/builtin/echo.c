@@ -6,7 +6,7 @@
 /*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 22:33:16 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/17 20:48:57 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/17 22:51:30 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int	say_it(t_tok *tok)
 		while (curr->str && curr->str[i] != '\0')
 		{
 			if (curr->str[i] != '\0')
-				printf("%c", curr->str[i++]);
+				ft_putchar_fd(curr->str[i++], STDOUT_FILENO);
 		}
-		printf(" ");
+		ft_putchar_fd(' ', STDOUT_FILENO);
 		curr = curr->next;
 	}
 	if (n_flag)
-		printf("\n");
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }
