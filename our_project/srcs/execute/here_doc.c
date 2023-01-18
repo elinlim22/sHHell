@@ -6,12 +6,11 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:31:42 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/18 00:56:10 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/18 13:58:41 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/get_next_line.h"
+#include "../../includes/minishell.h"
 
 #define UNLINK 0
 #define HEREDOC 1

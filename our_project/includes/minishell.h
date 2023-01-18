@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/18 01:28:40 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/18 13:48:00 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ void	here_doc_check(t_cmd *cmd, int num);
 // get_function.c
 char	**get_cmd(t_cmd *cmd);
 char	*get_vaild_cmd(char **path, char *cmd);
-char	**get_path(char *envp[]);
+char	**get_path(t_env *env);
 
 // main.c
 t_cmd	*ready_to_run(char *str);

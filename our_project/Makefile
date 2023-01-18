@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+         #
+#    By: huipark <huipark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 17:50:45 by hyeslim           #+#    #+#              #
-#    Updated: 2023/01/18 01:45:30 by hyeslim          ###   ########.fr        #
+#    Updated: 2023/01/18 14:00:04 by huipark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 # compiler
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra
 LINK_FLAG = -lreadline -L$(shell brew --prefix readline)/lib -I$(shell brew --prefix readline)/include #-L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include
 COMP_FLAG = -I includes/minishell.h
 
@@ -26,11 +26,11 @@ PARSE = ${DIR}parsing/
 SIGNL = ${DIR}signal/
 UTILS = ${DIR}utils/
 
-BLTIN_SRCS = echo exit export export_utils pwd unset env cd
-EXECU_SRCS =
+BLTIN_SRCS = echo exit export export_utils pwd unset env cd init_env_list
+EXECU_SRCS = here_doc redirect redirect_utils run_cmd
 PARSE_SRCS = checker chunk init iterator tokenizer sub_parsing
 SIGNL_SRCS = signal signal_utils signal_utils2
-UTILS_SRCS =
+UTILS_SRCS = free get_function
 
 # srcs
 SRCS = ${addsuffix .c, $(addprefix ${BLTIN}, ${BLTIN_SRCS})} \
@@ -38,14 +38,7 @@ SRCS = ${addsuffix .c, $(addprefix ${BLTIN}, ${BLTIN_SRCS})} \
 		${addsuffix .c, $(addprefix ${PARSE}, ${PARSE_SRCS})} \
 		${addsuffix .c, $(addprefix ${SIGNL}, ${SIGNL_SRCS})} \
 		${addsuffix .c, $(addprefix ${UTILS}, ${UTILS_SRCS})} \
-		${DIR}free.c \
-		${DIR}init_env_list.c \
-		${DIR}main.c \
-		$(DIR)run_cmd.c \
-		$(DIR)redirect_utils.c \
-		$(DIR)redirect.c \
-		$(DIR)get_function.c \
-		$(DIR)here_doc.c
+		${DIR}main.c
 
 
 all : ${NAME}

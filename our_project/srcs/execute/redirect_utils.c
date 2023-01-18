@@ -6,11 +6,11 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:42:10 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/17 17:38:15 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/18 13:56:00 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	close_unused_fd(t_cmd *cmd, int pid)
 {

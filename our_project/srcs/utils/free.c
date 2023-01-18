@@ -6,11 +6,11 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:39:09 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/18 00:41:22 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/18 13:55:28 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	double_free(char *s1, char *s2)
 {

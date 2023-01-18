@@ -6,11 +6,11 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:45:03 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/17 18:57:05 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/18 13:55:37 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	**get_cmd(t_cmd *cmd)
 {
@@ -47,6 +47,8 @@ char	*get_vaild_cmd(char **path, char *cmd)
 
 	i = 0;
 	temp_path = NULL;
+	if (!path)
+		return (cmd);
 	if (access(cmd, X_OK) == 0)
 		return (cmd);
 	temp_cmd = ft_strjoin("/", cmd);
@@ -64,19 +66,16 @@ char	*get_vaild_cmd(char **path, char *cmd)
 	return (cmd);
 }
 
-char	**get_path(char *envp[])
+char	**get_path(t_env *env)
 {
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (env->next)
 	{
-		if (!ft_strncmp(envp[i], "PATH", 4))
-		{
-			envp[i] += 5;
-			break ;
-		}
-		i++;
+		env = env->next;
+		if (!ft_strncmp(env->key, "PATH", 4))
+			return (ft_split(env->value, ':'));
 	}
-	return (ft_split(envp[i], ':'));
+	return (NULL);
 }

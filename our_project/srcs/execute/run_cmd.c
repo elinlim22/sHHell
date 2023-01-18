@@ -10,20 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 #define READ 0
 #define WRITE 1
 #define UNLINK 0
 #define HEREDOG 1
 
-void	execute(t_cmd *cmd, char *envp[])
+void	execute(t_cmd *cmd, char *envp[], t_env *env)
 {
 	char	**command;
 	char	**path;
 
 	command = get_cmd(cmd);
-	path = get_path(envp);
+	path = get_path(env);
 	command[0] = get_vaild_cmd(path, command[0]);
 	execve(command[0], command, envp);
 	printf("miniHell : %s: command not found\n", command[0]);
@@ -52,7 +52,7 @@ int	do_cmd(t_cmd *cmd, t_env env, char *envp[], int pid)
 		else if (!ft_strcmp(cmd->tok->next->str, "cd"))
 			return (cd(cmd->tok->next->next, &env));
 	}
-	execute(cmd, envp);
+	execute(cmd, envp, &env);
 	return (0);
 }
 

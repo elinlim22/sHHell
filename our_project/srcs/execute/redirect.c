@@ -6,11 +6,11 @@
 /*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:38:43 by huipark           #+#    #+#             */
-/*   Updated: 2023/01/17 18:57:02 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/18 13:56:03 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 #define READ 0
 #define WRITE 1
