@@ -85,7 +85,7 @@ t_tok	*tokenize(char *str)
 			str += token_cmd(&curr, str, SINQ);
 		else if (*str == '<' || *str == '>')
 			str += token_red(&curr, str);
-		else if (*str == ' ' || *str == '|')
+		else if (*str == ' ' || *str == '|' || *str == '\t')
 		{
 			if (*str == '|')
 				add_tok(&curr, ft_strdup("|"), PIPE);

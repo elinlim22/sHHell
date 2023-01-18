@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/18 01:29:33 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/18 14:18:11 by huipark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char *argv[], char *envp[])
 		str = readline("\033[0;35mminihell $> \033[0m");
 		if (!str)
 			break ;
-		if (*str != '\0')
+		if (*str != '\0' || (*str >= 9 && *str <= 13))
 		{
 			cmd = ready_to_run(str);
 			if (cmd->next)
