@@ -3,32 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   sub_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 19:25:51 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/18 00:53:33 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/18 01:23:41 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static char	*is_questionmark(char **str, char **res)
+{
+	char	*temp;
+	char	*num;
+
+	num = ft_itoa(g_exit_status);
+	ft_addstr(res, num);
+	free (num);
+	temp = ft_strdup("?");
+	(*str)++;
+	return (temp);
+}
+
 static void	replace_env_var(t_env *env, char **res, char *path)
 {
 	char	*str;
-	char	*temp;
-	char	*num;
 	t_env	*env_temp;
+	char	*temp;
 
 	str = path;
 	temp = NULL;
 	if (*str == '?')
-	{
-		num = ft_itoa(g_exit_status);
-		ft_addstr(res, num);
-		free (num);
-		temp = ft_strdup("?");
-		str++;
-	}
+		temp = is_questionmark(&str, res);
 	else
 	{
 		while (*str && (*str != ' ' && *str != '!' \

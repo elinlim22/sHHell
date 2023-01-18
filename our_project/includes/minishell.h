@@ -6,7 +6,7 @@
 /*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:03:38 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/17 23:18:03 by hyeslim          ###   ########.fr       */
+/*   Updated: 2023/01/18 01:28:40 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ char	**get_path(char *envp[]);
 
 // main.c
 t_cmd	*ready_to_run(char *str);
-void	argc_check(int argc, char *argv[]);
+void	argc_check(int argc, char *argv[], t_env *env, char *envp[]);
 
 #endif
 // signal handling

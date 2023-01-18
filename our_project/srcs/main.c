@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huipark <huipark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyeslim <hyeslim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:56:32 by hyeslim           #+#    #+#             */
-/*   Updated: 2023/01/18 00:58:23 by huipark          ###   ########.fr       */
+/*   Updated: 2023/01/18 01:29:33 by hyeslim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ t_cmd	*ready_to_run(char *str)
 	return (final);
 }
 
-void	argc_check(int argc, char *argv[])
+void	argc_check(int argc, char *argv[], t_env *env, char *envp[])
 {
 	if (argc != 1)
 	{
 		printf("minihell: %s: no arguments required\n", argv[1]);
 		exit (127);
 	}
+	init_env(env, envp);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -40,8 +41,7 @@ int	main(int argc, char *argv[], char *envp[])
 	t_cmd	*cmd;
 	t_env	env;
 
-	argc_check(argc, argv);
-	init_env(&env, envp);
+	argc_check(argc, argv, &env, envp);
 	while (1)
 	{
 		sig_status();
